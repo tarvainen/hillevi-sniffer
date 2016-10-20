@@ -17,11 +17,27 @@
      * Configure the providers.
      *
      * @param {*} $routeProvider
+     * @param {*} $translateProvider
+     * @param {*} $compileProvider
      */
-    function config ($routeProvider) {
+    function config ($routeProvider, $translateProvider, $compileProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'web/index.html'
-            });
+            })
+            .when('/settings', {
+                templateUrl: 'web/settings/index.html'
+            })
+        ;
+
+        $translateProvider.useStaticFilesLoader({
+            prefix: 'build/translated/',
+            suffix: '.json'
+        });
+
+        $translateProvider.preferredLanguage('fi');
+        $translateProvider.useSanitizeValueStrategy(false);
+
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
     }
 })();

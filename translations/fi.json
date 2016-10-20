@@ -1,3 +1,7 @@
 {
-  "APP": "Hillevi"
+  "APP": "Hillevi",
+
+  "SAVE_AND_TEST": "Tallenna ja testaa yhteys",
+  "API_URL": "Rajapintasi verkko-osoite (esim. https://hillevi-instanssisi.com/api)",
+  "API_KEY": "Tunnistautumisavain"
 }

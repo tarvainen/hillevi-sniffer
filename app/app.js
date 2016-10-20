@@ -6,7 +6,11 @@
      */
     angular.module('App', [
         'ngMaterial',
-        'App.Config'
+        'pascalprecht.translate',
+        'App.Config',
+        'App.Controllers',
+        'App.Services',
+        'Settings'
     ]);
 
 })();

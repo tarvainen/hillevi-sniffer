@@ -5,12 +5,43 @@
     <title>Hillevi</title>
     <link rel="stylesheet" type="text/css" href="build/vendor.min.css" />
     <link rel="stylesheet" type="text/css" href="build/hillevi-pc-client.min.css" />
+    <link rel="stylesheet" type="text/css" href="build/material-icons/material-icons.css">
 </head>
 
-<body data-ng-app="App">
+<body data-ng-app="App" ng-cloak>
 
-<div ng-view></div>
+<md-content data-ng-controller="MainController as vm"
+            layout="column" flex layout-fill
+>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>
+                <a href="#/">{{ 'APP' | translate }}</a>
+            </h2>
 
+            <span flex></span>
+
+            <md-button class="md-icon-button"
+                       aria-label="{{ 'SETTINGS' | translate }}"
+                       href="#/settings"
+            >
+                <md-icon>settings</md-icon>
+            </md-button>
+
+            <md-button class="md-icon-button"
+                       aria-label="{{ 'LOGOUT' | translate }}"
+            >
+                <md-icon>close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <div ng-view layout-padding></div>
+</md-content>
+
+<md-button class="md-fab md-fab-bottom-right" onclick="location.reload()">
+    <md-icon>refresh</md-icon>
+</md-button>
 </body>
 
 <script type="text/javascript" src="build/vendor.min.js"></script>

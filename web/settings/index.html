@@ -1,0 +1,19 @@
+<md-content layout="column" data-ng-controller="Settings.MainController as vm">
+    <form flex name="settings">
+        <md-input-container class="md-block">
+            <label>{{ ::'API_URL' | translate }}</label>
+            <input type="text" data-ng-model="vm.settings.url" required />
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <label>{{ ::'API_KEY' | translate }}</label>
+            <input type="password" data-ng-model="vm.settings.token" required />
+        </md-input-container>
+
+        <md-content layout="row" layout-align="end center">
+            <md-button class="md-raised md-primary" data-ng-click="vm.saveAndTest()" data-ng-disabled="settings.$invalid">
+                {{ ::'SAVE_AND_TEST' | translate }}
+            </md-button>
+        </md-content>
+    </form>
+</md-content>
