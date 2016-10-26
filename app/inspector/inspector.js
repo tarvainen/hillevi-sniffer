@@ -18,18 +18,21 @@
 
     /////////////////
 
-    run.$inject = ['InspectorDataService'];
+    run.$inject = ['$rootScope', '$filter', 'InspectorDataService'];
 
     /**
      * Run once to require gkm and init listeners.
      *
+     * @param {*} $rootScope
+     * @param {*} $filter
      * @param {*} InspectorDataService
      */
-    function run (InspectorDataService) {
+    function run ($rootScope, $filter, InspectorDataService) {
         var gkm = require('gkm');
 
         gkm.events.on('key.released', function (e) {
             InspectorDataService.key(e[0]);
+            $rootScope.$emit('key', $filter('$key')(e[0]));
         });
 
         gkm.events.on('mouse.moved', function (e) {

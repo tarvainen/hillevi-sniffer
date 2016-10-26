@@ -34,7 +34,9 @@
     "angular-route": "~1.5.8",
     "angular-translate": "~2.12.1",
     "material-design-icons": "~3.0.1",
-    "gkm": "~0.1.0"
+    "gkm": "~0.1.0",
+    "angular-chart.js": "~1.0.3",
+    "chart.js": "~2.3.0"
   },
   "devDependencies": {
     "gaze": "~1.1.2"

@@ -19,11 +19,22 @@
      * @param {*} $routeProvider
      * @param {*} $translateProvider
      * @param {*} $compileProvider
+     * @param {*} ChartJsProvider
      */
-    function config ($routeProvider, $translateProvider, $compileProvider) {
+    function config ($routeProvider, $translateProvider, $compileProvider, ChartJsProvider) {
+        // Setup chart.js
+        ChartJsProvider.setOptions({
+            global: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
         $routeProvider
             .when('/', {
-                templateUrl: 'web/index.html'
+                templateUrl: 'web/index.html',
+                controller: 'Dashboard.MainController',
+                controllerAs: 'vm'
             })
             .when('/settings', {
                 templateUrl: 'web/settings/index.html'

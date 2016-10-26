@@ -21,6 +21,17 @@
 
             <span flex></span>
 
+            <md-input-container class="md-block">
+                <md-switch data-ng-model="vm.active"
+                           aria-label="{{ ::'ACTIVE' | translate }}"
+                ></md-switch>
+            </md-input-container>
+            <span>
+                {{ (vm.active ? 'ACTIVE' : 'PASSIVE') | translate }}
+            </span>
+
+            <span flex></span>
+
             <md-button class="md-icon-button"
                        aria-label="{{ 'SETTINGS' | translate }}"
                        href="#/settings"

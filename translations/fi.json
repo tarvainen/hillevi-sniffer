@@ -6,5 +6,7 @@
   "API_KEY": "Tunnistautumisavain",
 
   "API_CONNECTION_TEST_SUCCESSFUL": "Yhteyden muodostaminen onnistui",
-  "API_CONNECTION_TEST_FAILED": "Yhteyden muodostaminen epäonnistui"
+  "API_CONNECTION_TEST_FAILED": "Yhteyden muodostaminen epäonnistui",
+  "ACTIVE": "Aktiivinen",
+  "PASSIVE": "Passiivinen"
 }
