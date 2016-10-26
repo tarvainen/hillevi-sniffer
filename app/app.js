@@ -10,6 +10,7 @@
         'App.Config',
         'App.Controllers',
         'App.Services',
+        'App.Inspector',
         'Settings'
     ]);
 
