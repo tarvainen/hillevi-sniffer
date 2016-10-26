@@ -11,6 +11,7 @@
      */
     angular.module('App.Services')
         .factory('DataService', DataService)
+        .factory('$toast', $toast)
     ;
     
     ///////////
@@ -75,6 +76,36 @@
          */
         function setToStorage (key, value) {
             return $window.localStorage.setItem(key, JSON.stringify(value));
+        }
+    }
+
+    $toast.$inject = ['$mdToast', '$translate'];
+
+    /**
+     * The toast service for making toasts.
+     *
+     * @param   {*} $mdToast
+     * @param   {*} $translate
+     *
+     * @returns {Function}
+     */
+    function $toast ($mdToast, $translate) {
+        return function (text) {
+            $translate(text).then(onTranslation);
+
+            /**
+             * Create the toast after the translation text is returned.
+             *
+             * @param {string}  translation
+             */
+            function onTranslation (translation) {
+                $mdToast.show(
+                    $mdToast
+                        .simple()
+                        .textContent(translation)
+                        .hideDelay(3000)
+                );
+            }
         }
     }
 

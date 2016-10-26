@@ -15,14 +15,17 @@
 
     //////////////
 
-    MainController.$inject = ['SettingsDataService'];
+    MainController.$inject = ['SettingsDataService', '$toast'];
 
     /**
      * Main controller for the settings interface.
      *
+     * @param {*} SettingsDataService
+     * @param {*} $toast
+     *
      * @constructor
      */
-    function MainController (SettingsDataService) {
+    function MainController (SettingsDataService, $toast) {
         var vm = this;
 
         vm.settings = SettingsDataService.getSettings();
@@ -32,10 +35,21 @@
          */
         vm.saveAndTest = function saveAndTest () {
             SettingsDataService.save(vm.settings);
-            if (SettingsDataService.test(vm.settings.url, vm.settings.token)) {
-                // TODO: make success notification
-            } else {
-                // TODO: make error
+
+            SettingsDataService.test().then(onSuccess, onError);
+
+            /**
+             * Called when the api connection is made successfully.
+             */
+            function onSuccess () {
+                $toast('API_CONNECTION_TEST_SUCCESSFUL');
+            }
+
+            /**
+             * Called when the api connection fails.
+             */
+            function onError () {
+                $toast('API_CONNECTION_TEST_FAILED');
             }
         };
     }

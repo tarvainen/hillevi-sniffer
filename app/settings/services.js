@@ -33,12 +33,9 @@
 
         /**
          * Test that the url and token are valid.
-         *
-         * @param {string} url
-         * @param {string} token
          */
-        function test (url, token) {
-            // TODO: Implement some testing route to check if url and token are valid
+        function test () {
+            return DataService.get('/api/mod/pcinspect/test');
         }
 
         /**
