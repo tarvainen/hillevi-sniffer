@@ -46,7 +46,13 @@
          * @param {string} value
          */
         function key (value) {
-            service.keys.push($filter('$key')(value));
+            var key = $filter('$key')(value);
+
+            if (!service.keys[key]) {
+                service.keys[key] = 0;
+            }
+
+            service.keys[key]++;
         }
 
         /**
@@ -80,7 +86,7 @@
          * Clear all the value arrays.
          */
         function reset () {
-            service.keys = [];
+            service.keys = {};
             service.clicks = [];
 
             if (service.mouse && service.mouse.x.length > 0) {
@@ -100,7 +106,7 @@
          * @returns {*[]}
          */
         function getKeys () {
-            return mix(service.keys).join(';');
+            return service.keys;
         }
 
         /**

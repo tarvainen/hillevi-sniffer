@@ -22,19 +22,16 @@
      */
     function $key () {
         var mapping = {
-            'Quote': 'Ä',
-            'Open Bracket': 'Å',
+            'Quote': 'AE',
+            'Open Bracket': 'OU',
             'Close Bracket': '^',
-            'Back Slash': '\'',
-            'Semicolon': 'Ö',
-            'Slash': '-',
-            'Comma': ',',
-            'Period': '.',
-            'Minus': '?'
+            'Semicolon': 'OE',
+            'Slash': 'Minus',
+            'Minus': 'QuestionMark'
         };
 
         return function (input) {
-            return mapping[input] || input;
+            return 'key_' + (mapping[input] || input).replace(/\s/g, '');
         }
     }
 })();

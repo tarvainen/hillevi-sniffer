@@ -15,7 +15,7 @@
 
     ////////////
 
-    MainController.$inject = ['$scope', '$interval', 'InspectorDataService'];
+    MainController.$inject = ['$scope', '$interval', 'InspectorDataService', 'DataService', '$filter'];
 
     /**
      * Main controller for the whole app.
@@ -23,10 +23,12 @@
      * @param {*} $scope
      * @param {*} $interval
      * @param {*} InspectorDataService
+     * @param {*} DataService
+     * @param {*} $filter
      *
      * @constructor
      */
-    function MainController ($scope, $interval, InspectorDataService) {
+    function MainController ($scope, $interval, InspectorDataService, DataService, $filter) {
         var vm = this;
 
         vm.active = true;
@@ -60,8 +62,22 @@
             var keys = InspectorDataService.getKeys();
             var clicks = InspectorDataService.getClicks();
 
-            // TODO: send data
-            InspectorDataService.reset();
+            // Send data to the server
+            DataService.get('/api/mod/pcinspect/push', {
+                data: [
+                    {
+                        timestamp: $filter('date')(Date.now(), 'dd.MM.yyyy HH:mm:ss'),
+                        keys: keys
+                    }
+                ]
+            }).then(onSuccess);
+
+            /**
+             * Fired when the data is successfully sent to the server.
+             */
+            function onSuccess () {
+                InspectorDataService.reset();
+            }
         }
     }
 
