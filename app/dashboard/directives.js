@@ -11,6 +11,7 @@
      */
     angular.module('App.Dashboard.Directives')
         .directive('simpleWidget', simpleWidget)
+        .directive('genericWidget', genericWidget)
     ;
 
     //////////////
@@ -37,6 +38,28 @@
             templateUrl: '/web/dashboard/simple-widget.html',
             replace: true
         };
+    }
+
+    /**
+     * Directive for the data widget.
+     *
+     * @return {*}
+     */
+    function genericWidget () {
+        return {
+            restrict: 'E',
+            controller: 'Dashboard.GenericWidgetController',
+            controllerAs: 'vm',
+            bindToController: true,
+            scope: {
+                model: '=',
+                title: '@',
+                subtitle: '@',
+                template: '@'
+            },
+            templateUrl: '/web/dashboard/data-widget.html',
+            replace: true
+        }
     }
 
 })();

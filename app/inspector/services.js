@@ -34,10 +34,11 @@
             key: key,
             mouseMoved: mouseMoved,
             mouseClicked: mouseClicked,
+            combo: combo,
             reset: reset,
             getKeys: getKeys,
             getClicks: getClicks,
-            getAverageMousePosition: getAverageMousePosition
+            getAverageMousePosition: getAverageMousePosition,
         };
 
         /**
@@ -83,11 +84,21 @@
         }
 
         /**
+         * Push the detected key combo to the combo array.
+         *
+         * @param {[]} combo
+         */
+        function combo (combo) {
+            service.combos.push(combo);
+        }
+
+        /**
          * Clear all the value arrays.
          */
         function reset () {
             service.keys = {};
             service.clicks = [];
+            service.combos = [];
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];

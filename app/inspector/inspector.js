@@ -30,9 +30,31 @@
     function run ($rootScope, $filter, InspectorDataService) {
         var gkm = require('gkm');
 
+        var pressed = [];
+        var comboBit = false;
+
+        gkm.events.on('key.pressed', function (e) {
+            if (pressed.indexOf(e[0]) < 0) {
+                pressed.push(e[0]);
+            }
+
+            comboBit = true;
+        });
+
         gkm.events.on('key.released', function (e) {
-            InspectorDataService.key(e[0]);
-            $rootScope.$emit('key', $filter('$key')(e[0]));
+            var key = $filter('$key')(e[0]);
+
+            if (pressed.length > 1 && comboBit) {
+                InspectorDataService.combo(pressed);
+                $rootScope.$emit('combo', pressed);
+            }
+
+            comboBit = false;
+
+            pressed.splice(pressed.indexOf(e[0]), 1);
+
+            InspectorDataService.key(key[0]);
+            $rootScope.$emit('key', key);
         });
 
         gkm.events.on('mouse.moved', function (e) {

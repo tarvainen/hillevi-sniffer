@@ -87,8 +87,12 @@
             return {
                 currentTypingSpeed: 0,
                 keysToday: 0,
+                keyCombos: {
+                    timestamp: new Date(),
+                    combos: {}
+                },
                 totalKeys: {
-                    start: new Date(),
+                    timestamp: new Date(),
                     value: 0
                 }
             };

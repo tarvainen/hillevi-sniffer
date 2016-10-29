@@ -1,25 +1,31 @@
 <md-content layout="column">
     <md-content class="md-padding" layout-xs="column" layout="row">
-        <div layout-xs="column" layout="row" flex>
-            <simple-widget
-                    data-value="vm.localData.currentTypingSpeed"
-                    data-title="{{ 'TYPING_SPEED' | translate }}"
-                    data-subtitle="1 / s"
-                    data-no-reset="true"
-            ></simple-widget>
+        <simple-widget
+                data-value="vm.localData.currentTypingSpeed"
+                data-title="{{ 'TYPING_SPEED' | translate }}"
+                data-subtitle="1 / s"
+                data-no-reset="true"
+        ></simple-widget>
 
-            <simple-widget
-                    data-value="vm.localData.totalKeys.value"
-                    data-title="{{ 'CHARS_TOTAL' | translate }}"
-                    data-subtitle="{{ vm.localData.totalKeys.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}"
-                    data-on-reset="vm.onTotalKeyReset"
-            ></simple-widget>
+        <simple-widget
+                data-value="vm.localData.totalKeys.value"
+                data-title="{{ 'CHARS_TOTAL' | translate }}"
+                data-subtitle="{{ vm.localData.totalKeys.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}"
+                data-on-reset="vm.onTotalKeyReset"
+        ></simple-widget>
 
-            <simple-widget
-                    data-value="vm.localData.keysToday"
-                    data-title="{{ 'CHARS_TODAY' | translate }}"
-                    data-no-reset="true"
-            ></simple-widget>
-        </div>
+        <simple-widget
+                data-value="vm.localData.keysToday"
+                data-title="{{ 'CHARS_TODAY' | translate }}"
+                data-no-reset="true"
+        ></simple-widget>
+    </md-content>
+
+    <md-content class="md-padding" layout-xs="column" layout="row">
+        <generic-widget
+                data-model="vm.localData.keyCombosArray"
+                data-title="{{ 'TOP_5_KEY_COMBOS' | translate }}"
+                data-template="/web/dashboard/widgets/widget-key-combo.html"
+        ></generic-widget>
     </md-content>
 </md-content>

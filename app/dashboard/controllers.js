@@ -12,11 +12,12 @@
     angular.module('App.Dashboard.Controllers')
         .controller('Dashboard.MainController', MainController)
         .controller('Dashboard.SimpleWidgetController', SimpleWidgetController)
+        .controller('Dashboard.GenericWidgetController', GenericWidgetController)
     ;
     
     ///////////////
 
-    MainController.$inject = ['$rootScope', '$scope', '$interval', 'DashboardDataService', '$timeout'];
+    MainController.$inject = ['$rootScope', '$scope', '$interval', 'DashboardDataService', '$timeout', '$filter'];
 
     /**
      * Main controller for the dashboard view.
@@ -26,10 +27,11 @@
      * @param {*}   $interval
      * @param {*}   DashboardDataService
      * @param {*}   $timeout
+     * @param {*}   $filter
      *
      * @constructor
      */
-    function MainController ($rootScope, $scope, $interval, DashboardDataService, $timeout) {
+    function MainController ($rootScope, $scope, $interval, DashboardDataService, $timeout, $filter) {
         var vm = this;
 
         vm.active = true;
@@ -39,6 +41,7 @@
 
         // Listen variable changes
         $rootScope.$on('key', onKeyPressed);
+        $rootScope.$on('combo', onKeyCombo);
         $scope.$on('activityChanged', onActivityChanged);
 
         // TODO: fetch the interval from user's settings
@@ -75,6 +78,29 @@
             });
         }
 
+        /**
+         * Fires then the key combo is detected.
+         *
+         * @param {*}  e
+         * @param {[]} combo
+         */
+        function onKeyCombo (e, combo) {
+            var comboName = combo.join(' + ');
+
+            if (!vm.localData.keyCombos.combos[comboName]) {
+                vm.localData.keyCombos.combos[comboName] = {
+                    combo: comboName,
+                    amount: 0
+                };
+            }
+
+            vm.localData.keyCombos.combos[comboName].amount++;
+            vm.localData.keyCombosArray = $filter('toArray')(vm.localData.keyCombos.combos);
+        }
+
+        /**
+         * Reset the total keys.
+         */
         vm.onTotalKeyReset = function onTotalKeyReset () {
             vm.localData.totalKeys.timestamp = new Date();
         };
@@ -112,6 +138,15 @@
                 vm.onReset();
             }
         };
+    }
+
+    /**
+     * Controller for the generic widget.
+     *
+     * @constructor
+     */
+    function GenericWidgetController () {
+        var vm = this;
     }
 
 })();

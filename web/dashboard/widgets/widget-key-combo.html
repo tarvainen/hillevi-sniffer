@@ -1,0 +1,6 @@
+<md-list ng-cloak>
+    <md-list-item data-ng-repeat="combo in vm.model | orderBy: '-amount' | limitTo: 5 track by $index">
+        <p>{{ combo.combo }} ({{ combo.combo | keyComboAlias }})</p>
+        <span>{{ combo.amount }}</span>
+    </md-list-item>
+</md-list>

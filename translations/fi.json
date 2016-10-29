@@ -14,5 +14,16 @@
   "CHAR_PER_MINUTE": "1 / min",
   "CHARS_TODAY": "Näppäilty tänään",
   "CHARS_TOTAL": "Näppäilty alkaen",
-  "ZERO": "Nollaa"
+  "TOP_5_KEY_COMBOS": "Top 5 -näppäinyhdistelmät",
+  "ZERO": "Nollaa",
+
+
+  // KEY COMBOS
+  "COPY": "Kopioi",
+  "PASTE": "Liitä",
+  "CUT": "Leikkaa",
+  "FIND": "Etsi",
+  "SELECT_ALL": "Valitse kaikki",
+  "SAVE": "Tallenna",
+  "SAVE_AS": "Tallenna nimellä"
 }

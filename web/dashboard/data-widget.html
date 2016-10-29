@@ -1,0 +1,13 @@
+<md-card flex>
+    <md-card-title>
+        <md-card-title-text>
+            <div class="md-headline" layout="row" layout-align="start center">
+                {{ vm.title }}
+            </div>
+            <span class="md-subhead">{{ vm.subtitle }}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <data-ng-include src="vm.template"></data-ng-include>
+    </md-card-content>
+</md-card>
