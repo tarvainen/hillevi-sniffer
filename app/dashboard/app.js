@@ -6,7 +6,8 @@
      */
     angular.module('App.Dashboard', [
         'App.Dashboard.Controllers',
-        'App.Dashboard.Services'
+        'App.Dashboard.Services',
+        'App.Dashboard.Directives'
     ]);
 
 })();

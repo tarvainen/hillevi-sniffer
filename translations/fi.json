@@ -8,5 +8,11 @@
   "API_CONNECTION_TEST_SUCCESSFUL": "Yhteyden muodostaminen onnistui",
   "API_CONNECTION_TEST_FAILED": "Yhteyden muodostaminen epäonnistui",
   "ACTIVE": "Aktiivinen",
-  "PASSIVE": "Passiivinen"
+  "PASSIVE": "Passiivinen",
+
+  "TYPING_SPEED": "Kirjoitusnopeus",
+  "CHAR_PER_MINUTE": "1 / min",
+  "CHARS_TODAY": "Näppäilty tänään",
+  "CHARS_TOTAL": "Näppäilty alkaen",
+  "ZERO": "Nollaa"
 }

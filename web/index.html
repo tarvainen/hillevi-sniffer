@@ -1,7 +1,25 @@
-<md-content layout="column" layout-fill>
-    <canvas id="chart_typing_speed" class="chart chart-line md-block"
-            data-chart-data="vm.typingSpeed"
-            data-chart-labels="vm.labels"
-            data-chart-options="vm.options"
-    ></canvas>
+<md-content layout="column">
+    <md-content class="md-padding" layout-xs="column" layout="row">
+        <div layout-xs="column" layout="row" flex>
+            <simple-widget
+                    data-value="vm.localData.currentTypingSpeed"
+                    data-title="{{ 'TYPING_SPEED' | translate }}"
+                    data-subtitle="1 / s"
+                    data-no-reset="true"
+            ></simple-widget>
+
+            <simple-widget
+                    data-value="vm.localData.totalKeys.value"
+                    data-title="{{ 'CHARS_TOTAL' | translate }}"
+                    data-subtitle="{{ vm.localData.totalKeys.timestamp | date:'dd.MM.yyyy HH:mm:ss' }}"
+                    data-on-reset="vm.onTotalKeyReset"
+            ></simple-widget>
+
+            <simple-widget
+                    data-value="vm.localData.keysToday"
+                    data-title="{{ 'CHARS_TODAY' | translate }}"
+                    data-no-reset="true"
+            ></simple-widget>
+        </div>
+    </md-content>
 </md-content>
