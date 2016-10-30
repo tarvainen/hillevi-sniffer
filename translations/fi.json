@@ -4,6 +4,10 @@
   "SAVE_AND_TEST": "Tallenna ja testaa yhteys",
   "API_URL": "Rajapintasi verkko-osoite (esim. https://hillevi-instanssisi.com/api)",
   "API_KEY": "Tunnistautumisavain",
+  "WEB_API_SETTINGS": "Web-rajapinnan asetukset",
+  "LOCAL_SETTINGS": "Paikalliset asetukset",
+  "RESET_ALL_DATA": "Nollaa tiedot",
+  "RESET_ALL_DATA_DESCRIPTION": "Tyhjentää kaiken paikallisesti tallennetun tiedon",
 
   "API_CONNECTION_TEST_SUCCESSFUL": "Yhteyden muodostaminen onnistui",
   "API_CONNECTION_TEST_FAILED": "Yhteyden muodostaminen epäonnistui",
@@ -16,7 +20,7 @@
   "CHARS_TOTAL": "Näppäilty alkaen",
   "TOP_5_KEY_COMBOS": "Top 5 -näppäinyhdistelmät",
   "ZERO": "Nollaa",
-
+  "TYPING_SPEED_TREND": "Kirjoitusnopeuden kehitys",
 
   // KEY COMBOS
   "COPY": "Kopioi",

@@ -17,7 +17,7 @@
     
     ///////////////
 
-    MainController.$inject = ['$rootScope', '$timeout', '$filter', 'LocalDataService'];
+    MainController.$inject = ['$rootScope', '$timeout', '$filter', '$interval', 'LocalDataService'];
 
     /**
      * Main controller for the dashboard view.
@@ -25,15 +25,37 @@
      * @param {*}   $rootScope
      * @param {*}   $timeout
      * @param {*}   $filter
+     * @param {*}   $interval
      * @param {*}   LocalDataService
      *
      * @constructor
      */
-    function MainController ($rootScope, $timeout, $filter, LocalDataService) {
+    function MainController ($rootScope, $timeout, $filter, $interval, LocalDataService) {
         var vm = this;
 
         $rootScope.$on('localDataChanged', onLocalDataChanged);
+        $interval(updateChart, 1000 * 60); // Update the chart in one minute cycles
+
         vm.localData = LocalDataService.getData();
+
+        // Initialize temp data
+        vm.tmpData = {
+            lastTotalKeys: 0,
+            keys: 0,
+            typingSpeedTrend: {
+                data: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+                labels: ['10min', '9min', '8min', '7min', '6min', '5min', '4min', '3min', '2min', '1min']
+            }
+        };
+
+        /**
+         * Update the chart showing the typing speed trend over last ten minutes.
+         */
+        function updateChart () {
+            vm.tmpData.typingSpeedTrend.data[0].shift();
+            vm.tmpData.typingSpeedTrend.data[0].push(vm.tmpData.keys);
+            vm.tmpData.keys = 0;
+        }
 
         /**
          * Fires when the local data is changed.
@@ -43,6 +65,12 @@
          */
         function onLocalDataChanged (e, data) {
             $timeout(function () {
+                if (data.totalKeys.value !== vm.tmpData.lastTotalKeys) {
+                    vm.tmpData.keys++;
+                }
+
+                vm.tmpData.lastTotalKeys = data.totalKeys.value;
+
                 vm.localData = data;
                 vm.localData.keyCombosArray = $filter('toArray')(vm.localData.keyCombos.combos);
             });
