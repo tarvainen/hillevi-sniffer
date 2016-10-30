@@ -50,5 +50,12 @@
         $translateProvider.useSanitizeValueStrategy(false);
 
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+
+        // Define countdown's display format
+        countdown.setFormat({
+            plural: 'ms|s|min|h|d||||',
+            singular: 'ms|s|min|h|d||||',
+            last: ' '
+        });
     }
 })();

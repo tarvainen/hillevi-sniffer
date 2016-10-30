@@ -37,6 +37,7 @@
             registerMouseMove: registerMouseMove,
             registerMouseClick: registerMouseClick,
             registerKeyCombo: registerKeyCombo,
+            registerActiveWindow: registerActiveWindow,
             getKeys: getKeys,
             getClicks: getClicks,
             getAverageMousePosition: getAverageMousePosition
@@ -50,6 +51,7 @@
             service.clicks = [];
             service.combos = [];
             service.stroke = 0;
+            service.windows = {};
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -113,6 +115,22 @@
         }
 
         /**
+         * Push the active window information.
+         *
+         * @param {*} data
+         */
+        function registerActiveWindow (data) {
+            if (!service.windows[data.app]) {
+                service.windows[data.app] = {
+                    app: data.app,
+                    activeTime: 0
+                };
+            }
+
+            service.windows[data.app].activeTime++;
+        }
+
+        /**
          * Get all registered keys.
          *
          * @returns {*[]}
@@ -166,6 +184,7 @@
         $rootScope.$on('keyCombo', onKeyCombo);
         $rootScope.$on('mouseMoved', onMouseMoved);
         $rootScope.$on('mouseClicked', onMouseClicked);
+        $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
 
         // Start automatic notification interval
         notify();
@@ -230,6 +249,25 @@
         }
 
         /**
+         * Fired when the active window information is fetched.
+         *
+         * @param  {*}  e
+         * @param  {*}  data
+         */
+        function onActiveWindowDetected (e, data) {
+            if (!localData.activeWindows[data.app]) {
+                localData.activeWindows[data.app] = {
+                    app: data.app,
+                    activeTime: 0
+                };
+            }
+
+            localData.activeWindows[data.app].activeTime++;
+
+            notify();
+        }
+
+        /**
          * Notify the UI about the local data changes.
          */
         function notify () {
@@ -264,7 +302,8 @@
                 totalKeys: {
                     timestamp: new Date(),
                     value: 0
-                }
+                },
+                activeWindows: {}
             };
 
             DataService.storage.set('localData', localData);

@@ -19,6 +19,7 @@
   "CHARS_TODAY": "Näppäilty tänään",
   "CHARS_TOTAL": "Näppäilty alkaen",
   "TOP_5_KEY_COMBOS": "Top 5 -näppäinyhdistelmät",
+  "TOP_5_ACTIVE_WINDOWS": "5 aktiivisinta näkymää",
   "ZERO": "Nollaa",
   "TYPING_SPEED_TREND": "Kirjoitusnopeuden kehitys",
 
@@ -32,5 +33,6 @@
   "SAVE_AS": "Tallenna nimellä",
 
   "ANALYZER_KEYBOARD": "Näppäimistö",
-  "ANALYZER_MOUSE": "Hiiri"
+  "ANALYZER_MOUSE": "Hiiri",
+  "ANALYZER_APPS": "Sovellukset"
 }

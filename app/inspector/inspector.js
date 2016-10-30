@@ -18,16 +18,16 @@
 
     /////////////////
 
-    run.$inject = ['$rootScope', '$filter', 'InspectorDataService'];
+    run.$inject = ['$rootScope', '$filter', '$interval'];
 
     /**
      * Run once to require gkm and init listeners.
      *
      * @param {*} $rootScope
      * @param {*} $filter
-     * @param {*} InspectorDataService
+     * @param {*} $interval
      */
-    function run ($rootScope, $filter, InspectorDataService) {
+    function run ($rootScope, $filter, $interval) {
         var gkm = require('gkm');
 
         var pressed = [];
@@ -66,6 +66,31 @@
         gkm.events.on('mouse.pressed', function (e) {
             $rootScope.$emit('mouseClicked', e[0]);
         });
+
+        var activeWindow = require('active-window');
+
+        // "Listen" the active window. We don't have event based way to do this so let's do it by polling.
+        $interval(function () {
+            activeWindow.getActiveWindow(function (window) {
+                var data = {
+                    app: strip(window.app.replace(/\s/g, '')).split(',')[1],
+                    title: strip(window.title)
+                };
+
+                $rootScope.$emit('activeWindowDetected', data);
+            });
+
+            /**
+             * Strips the quotation marks out of the text.
+             *
+             * @param {string} name
+             *
+             * @return {*}
+             */
+            function strip (name) {
+                return name.replace(/["]/g, '');
+            }
+        }, 1000);
     }
 
 })();

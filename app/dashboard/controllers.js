@@ -73,6 +73,7 @@
 
                 vm.localData = data;
                 vm.localData.keyCombosArray = $filter('toArray')(vm.localData.keyCombos.combos);
+                vm.localData.activeWindowsArray = $filter('toArray')(vm.localData.activeWindows);
             });
         }
 

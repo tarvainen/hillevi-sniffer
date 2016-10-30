@@ -15,7 +15,9 @@
 
     ////////////
 
-    MainController.$inject = ['$rootScope', '$scope', '$interval', 'InspectorDataService', 'DataService', '$filter', 'LocalDataService'];
+    MainController.$inject = [
+        '$rootScope', '$scope', '$interval', 'InspectorDataService', 'DataService', '$filter'
+    ];
 
     /**
      * Main controller for the whole app.
@@ -26,11 +28,12 @@
      * @param {*} InspectorDataService
      * @param {*} DataService
      * @param {*} $filter
-     * @param {*} LocalDataService
      *
      * @constructor
      */
-    function MainController ($rootScope, $scope, $interval, InspectorDataService, DataService, $filter, LocalDataService) {
+    function MainController (
+        $rootScope, $scope, $interval, InspectorDataService, DataService, $filter
+    ) {
         var vm = this;
 
         vm.active = true;
@@ -42,6 +45,7 @@
         $rootScope.$on('mouseClicked', onMouseClicked);
         $rootScope.$on('keyReleased', onKeyReleased);
         $rootScope.$on('keyCombo', onKeyCombo);
+        $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
 
         /**
          * Watcher for the activity changes.
@@ -126,6 +130,16 @@
          */
         function onKeyCombo (e, data) {
             InspectorDataService.registerKeyCombo(data);
+        }
+
+        /**
+         * Fires when the active window information is fetched.
+         *
+         * @param   {*}  e
+         * @param   {*} data
+         */
+        function onActiveWindowDetected (e, data) {
+            InspectorDataService.registerActiveWindow(data);
         }
     }
 

@@ -13,6 +13,7 @@
         .filter('toArray', toArray)
         .filter('mix', mix)
         .filter('avg', avg)
+        .filter('countdown', _countdown)
     ;
 
     /////////////
@@ -70,6 +71,22 @@
                     return p + c;
                 }) / values.length;
         }
+    }
+
+    /**
+     * Converts the input (in seconds) to the countdown format like '4min 14s'
+     *
+     * @return {Function}
+     *
+     * @private
+     */
+    function _countdown () {
+        function c (input) {
+            var date = new Date().setTime(Date.now() + parseInt(input) * 1000);
+            return countdown(date).toString();
+        }
+
+        return c;
     }
 
 })();

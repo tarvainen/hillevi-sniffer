@@ -43,6 +43,16 @@
         <md-tab label="{{ ::'ANALYZER_MOUSE' | translate }}">
 
         </md-tab>
+
+        <md-tab label="{{ ::'ANALYZER_APPS' | translate }}">
+            <div layout="row" class="md-padding">
+                <generic-widget
+                        data-model="vm.localData.activeWindowsArray"
+                        data-title="{{ ::'TOP_5_ACTIVE_WINDOWS' | translate }}"
+                        data-template="/web/dashboard/widgets/widget-most-active-windows.html"
+                ></generic-widget>
+            </div>
+        </md-tab>
     </md-tabs>
 
 </md-content>

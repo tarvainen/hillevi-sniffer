@@ -17,6 +17,7 @@ module.exports = function (grunt) {
             vendor: {
                 files: {
                     'build/vendor.min.js': [
+                        'node_modules/countdown/countdown.js',
                         'node_modules/chart.js/dist/Chart.js',
                         'node_modules/angular/angular.js',
                         'node_modules/angular-route/angular-route.js',
