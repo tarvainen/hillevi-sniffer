@@ -33,6 +33,7 @@
         var pressed = [];
         var comboBit = false;
 
+        // Global listener for key press event
         gkm.events.on('key.pressed', function (e) {
             if (pressed.indexOf(e[0]) < 0) {
                 pressed.push(e[0]);
@@ -41,28 +42,29 @@
             comboBit = true;
         });
 
+        // Global listener for key released event
         gkm.events.on('key.released', function (e) {
             var key = $filter('$key')(e[0]);
 
             if (pressed.length > 1 && comboBit) {
-                InspectorDataService.combo(pressed);
-                $rootScope.$emit('combo', pressed);
+                $rootScope.$emit('keyCombo', pressed);
             }
 
             comboBit = false;
 
             pressed.splice(pressed.indexOf(e[0]), 1);
 
-            InspectorDataService.key(key[0]);
-            $rootScope.$emit('key', key);
+            $rootScope.$emit('keyReleased', key);
         });
 
+        // Global listener for the mouse move event
         gkm.events.on('mouse.moved', function (e) {
-            InspectorDataService.mouseMoved(e[0]);
+            $rootScope.$emit('mouseMoved', e[0]);
         });
 
+        // Global listener for the mouse press event
         gkm.events.on('mouse.pressed', function (e) {
-            InspectorDataService.mouseClicked(e[0]);
+            $rootScope.$emit('mouseClicked', e[0]);
         });
     }
 

@@ -15,25 +15,33 @@
 
     ////////////
 
-    MainController.$inject = ['$scope', '$interval', 'InspectorDataService', 'DataService', '$filter'];
+    MainController.$inject = ['$rootScope', '$scope', '$interval', 'InspectorDataService', 'DataService', '$filter', 'LocalDataService'];
 
     /**
      * Main controller for the whole app.
      *
+     * @param {*} $rootScope
      * @param {*} $scope
      * @param {*} $interval
      * @param {*} InspectorDataService
      * @param {*} DataService
      * @param {*} $filter
+     * @param {*} LocalDataService
      *
      * @constructor
      */
-    function MainController ($scope, $interval, InspectorDataService, DataService, $filter) {
+    function MainController ($rootScope, $scope, $interval, InspectorDataService, DataService, $filter, LocalDataService) {
         var vm = this;
 
         vm.active = true;
 
         $scope.$watch('vm.active', activeWatcher);
+
+        // Watch global events
+        $rootScope.$on('mouseMoved', onMouseMoved);
+        $rootScope.$on('mouseClicked', onMouseClicked);
+        $rootScope.$on('keyReleased', onKeyReleased);
+        $rootScope.$on('keyCombo', onKeyCombo);
 
         /**
          * Watcher for the activity changes.
@@ -78,6 +86,46 @@
             function onSuccess () {
                 InspectorDataService.reset();
             }
+        }
+
+        /**
+         * Fired when the mouse is moved.
+         *
+         * @param   {*}  e
+         * @param   {*} data
+         */
+        function onMouseMoved (e, data) {
+            InspectorDataService.registerMouseMove(data);
+        }
+
+        /**
+         * Fired when the mouse is clicked.
+         *
+         * @param   {*}  e
+         * @param   {*} data
+         */
+        function onMouseClicked (e, data) {
+            InspectorDataService.registerMouseClick(data);
+        }
+
+        /**
+         * Fired when a keyboard key is released.
+         *
+         * @param   {*}  e
+         * @param   {*} data
+         */
+        function onKeyReleased (e, data) {
+            InspectorDataService.registerKeyPress(data);
+        }
+
+        /**
+         * Fired when a key combo is detected.
+         *
+         * @param   {*}  e
+         * @param   {*} data
+         */
+        function onKeyCombo (e, data) {
+            InspectorDataService.registerKeyCombo(data);
         }
     }
 

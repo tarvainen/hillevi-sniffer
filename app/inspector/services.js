@@ -11,6 +11,7 @@
      */
     angular.module('App.Inspector.Services')
         .factory('InspectorDataService', InspectorDataService)
+        .factory('LocalDataService', LocalDataService)
     ;
 
     ///////////////
@@ -31,29 +32,48 @@
         reset();
 
         return {
-            key: key,
-            mouseMoved: mouseMoved,
-            mouseClicked: mouseClicked,
-            combo: combo,
             reset: reset,
+            registerKeyPress: registerKeyPress,
+            registerMouseMove: registerMouseMove,
+            registerMouseClick: registerMouseClick,
+            registerKeyCombo: registerKeyCombo,
             getKeys: getKeys,
             getClicks: getClicks,
-            getAverageMousePosition: getAverageMousePosition,
+            getAverageMousePosition: getAverageMousePosition
         };
+
+        /**
+         * Clear all the value arrays.
+         */
+        function reset () {
+            service.keys = {};
+            service.clicks = [];
+            service.combos = [];
+            service.stroke = 0;
+
+            if (service.mouse && service.mouse.x.length > 0) {
+                service.mouse.x = [service.mouse.x.pop()];
+                service.mouse.y = [service.mouse.y.pop()];
+            } else {
+                service.mouse = {
+                    x: [],
+                    y: []
+                };
+            }
+        }
 
         /**
          * Add key to the pressed keys array.
          *
-         * @param {string} value
+         * @param {string} key
          */
-        function key (value) {
-            var key = $filter('$key')(value);
-
+        function registerKeyPress (key) {
             if (!service.keys[key]) {
                 service.keys[key] = 0;
             }
 
             service.keys[key]++;
+            service.stroke++;
         }
 
         /**
@@ -61,7 +81,7 @@
          *
          * @param {string} pos
          */
-        function mouseMoved (pos) {
+        function registerMouseMove (pos) {
             var position = pos.split(',');
 
             service.mouse.x.push(parseInt(position[0]));
@@ -73,7 +93,7 @@
          *
          * @param {string} btn
          */
-        function mouseClicked (btn) {
+        function registerMouseClick (btn) {
             var values = [
                 btn,
                 service.mouse.x[service.mouse.x.length - 1],
@@ -88,27 +108,8 @@
          *
          * @param {[]} combo
          */
-        function combo (combo) {
+        function registerKeyCombo (combo) {
             service.combos.push(combo);
-        }
-
-        /**
-         * Clear all the value arrays.
-         */
-        function reset () {
-            service.keys = {};
-            service.clicks = [];
-            service.combos = [];
-
-            if (service.mouse && service.mouse.x.length > 0) {
-                service.mouse.x = [service.mouse.x.pop()];
-                service.mouse.y = [service.mouse.y.pop()];
-            } else {
-                service.mouse = {
-                    x: [],
-                    y: []
-                };
-            }
         }
 
         /**
@@ -128,26 +129,9 @@
          */
         function getAverageMousePosition () {
             return [
-                Math.round(avg(service.mouse.x)),
-                Math.round(avg(service.mouse.y))
+                Math.round($filter('avg')(service.mouse.x)),
+                Math.round($filter('avg')(service.mouse.y))
             ];
-
-            /**
-             * Calculate the average of values.
-             *
-             * @param  {[]} values
-             *
-             * @returns {number}
-             */
-            function avg (values) {
-                if (!values || values.length === 0) {
-                    return 0;
-                }
-
-                return values.reduce(function (p, c) {
-                    return p + c;
-                }) / values.length;
-            }
         }
 
         /**
@@ -156,27 +140,149 @@
          * @returns {*[]}
          */
         function getClicks () {
-            return mix(service.clicks).join('\n');
+            return $filter('mix')(service.clicks).join('\n');
+        }
+    }
+
+    LocalDataService.$inject = ['$rootScope', '$timeout', 'DataService'];
+
+    /**
+     * Data service for handling local data. This is needed to keep local data fully separated of the
+     * data pushed to the server.
+     *
+     * @param   {*} $rootScope
+     * @param   {*} $timeout
+     * @param   {*} DataService
+     *
+     * @return {*}
+     *
+     * @constructor
+     */
+    function LocalDataService ($rootScope, $timeout, DataService) {
+        var localData = DataService.storage.get('localData');
+        var timeout = null;
+
+        $rootScope.$on('keyReleased', onKeyReleased);
+        $rootScope.$on('keyCombo', onKeyCombo);
+        $rootScope.$on('mouseMoved', onMouseMoved);
+        $rootScope.$on('mouseClicked', onMouseClicked);
+
+        // Start automatic notification interval
+        notify();
+
+        /**
+         * Fired when the key is released.
+         *
+         * @param  {*}  e
+         * @param  {*}  data
+         */
+        function onKeyReleased (e, data) {
+            localData.keysToday++;
+            localData.totalKeys.value++;
+
+            localData.currentTypingSpeed++;
+            $timeout(function () {
+                localData.currentTypingSpeed--;
+            }, 1000);
+
+            notify();
         }
 
         /**
-         * Mix the data to the random order.
+         * Fired when the key is released.
          *
-         * @param {[]} a
-         *
-         * @returns {[]}
+         * @param  {*}  e
+         * @param  {*}  data
          */
-        function mix (a) {
-            var j, x, i;
+        function onKeyCombo (e, data) {
+            var combo = data.join(' + ');
 
-            for (i = a.length; i; i--) {
-                j = Math.floor(Math.random() * i);
-                x = a[i - 1];
-                a[i - 1] = a[j];
-                a[j] = x;
+            if (!localData.keyCombos.combos[combo]) {
+                localData.keyCombos.combos[combo] = {
+                    combo: combo,
+                    amount: 0
+                };
             }
 
-            return a;
+            localData.keyCombos.combos[combo].amount++;
+
+            notify();
         }
+
+        /**
+         * Fired when the mouse is moved.
+         *
+         * @param  {*}  e
+         * @param  {*}  data
+         */
+        function onMouseMoved (e, data) {
+            // TODO: handle mouse move events
+        }
+
+        /**
+         * Fired when the mouse is clicked.
+         *
+         * @param  {*}  e
+         * @param  {*}  data
+         */
+        function onMouseClicked (e, data) {
+            // TODO: handle mouse click events
+        }
+
+        /**
+         * Notify the UI about the local data changes.
+         */
+        function notify () {
+            if (timeout) {
+                $timeout.cancel(timeout);
+            }
+
+            $rootScope.$emit('localDataChanged', localData);
+
+            timeout = $timeout(function () {
+                timeout = null;
+                notify();
+            }, 1000);
+
+            var storedData = angular.copy(localData);
+            storedData.currentTypingSpeed = 0;
+
+            DataService.storage.set('localData', storedData);
+        }
+
+        /**
+         * Resets the local data.
+         */
+        function reset () {
+            localData = {
+                currentTypingSpeed: 0,
+                keysToday: 0,
+                keyCombos: {
+                    timestamp: new Date(),
+                    combos: {}
+                },
+                totalKeys: {
+                    timestamp: new Date(),
+                    value: 0
+                }
+            };
+
+            DataService.storage.set('localData', localData);
+        }
+
+        /**
+         * Returns the local data.
+         *
+         * @return {*}
+         */
+        function getData () {
+            return localData;
+        }
+
+        return {
+            reset: reset,
+            getData: getData
+        };
     }
+
 })();
