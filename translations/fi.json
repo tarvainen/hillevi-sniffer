@@ -25,5 +25,8 @@
   "FIND": "Etsi",
   "SELECT_ALL": "Valitse kaikki",
   "SAVE": "Tallenna",
-  "SAVE_AS": "Tallenna nimellä"
+  "SAVE_AS": "Tallenna nimellä",
+
+  "ANALYZER_KEYBOARD": "Näppäimistö",
+  "ANALYZER_MOUSE": "Hiiri"
 }
