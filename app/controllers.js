@@ -16,14 +16,13 @@
     ////////////
 
     MainController.$inject = [
-        '$rootScope', '$scope', '$interval', 'InspectorDataService', 'DataService', '$filter'
+        '$rootScope', '$interval', 'InspectorDataService', 'DataService', '$filter'
     ];
 
     /**
      * Main controller for the whole app.
      *
      * @param {*} $rootScope
-     * @param {*} $scope
      * @param {*} $interval
      * @param {*} InspectorDataService
      * @param {*} DataService
@@ -32,13 +31,9 @@
      * @constructor
      */
     function MainController (
-        $rootScope, $scope, $interval, InspectorDataService, DataService, $filter
+        $rootScope, $interval, InspectorDataService, DataService, $filter
     ) {
         var vm = this;
-
-        vm.active = true;
-
-        $scope.$watch('vm.active', activeWatcher);
 
         // Watch global events
         $rootScope.$on('mouseMoved', onMouseMoved);
@@ -46,16 +41,6 @@
         $rootScope.$on('keyReleased', onKeyReleased);
         $rootScope.$on('keyCombo', onKeyCombo);
         $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
-
-        /**
-         * Watcher for the activity changes.
-         *
-         * @param {*}  valueNew
-         * @param {*}  valueOld
-         */
-        function activeWatcher (valueNew, valueOld) {
-            $scope.$broadcast('activityChanged', valueNew);
-        }
 
         // Read and send data in the intervals of one minute
         $interval(sendData, 1000 * 60);

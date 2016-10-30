@@ -1,6 +1,7 @@
 {
   "APP": "Hillevi",
 
+
   "SAVE_AND_TEST": "Tallenna ja testaa yhteys",
   "API_URL": "Rajapintasi verkko-osoite (esim. https://hillevi-instanssisi.com/api)",
   "API_KEY": "Tunnistautumisavain",
@@ -13,6 +14,8 @@
   "API_CONNECTION_TEST_FAILED": "Yhteyden muodostaminen epäonnistui",
   "ACTIVE": "Aktiivinen",
   "PASSIVE": "Passiivinen",
+  "SETTINGS": "Asetukset",
+  "DASHBOARD": "Dashboard",
 
   "TYPING_SPEED": "Kirjoitusnopeus",
   "CHAR_PER_MINUTE": "1 / min",

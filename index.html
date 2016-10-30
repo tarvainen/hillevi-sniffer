@@ -21,28 +21,20 @@
 
             <span flex></span>
 
-            <md-input-container class="md-block">
-                <md-switch data-ng-model="vm.active"
-                           aria-label="{{ ::'ACTIVE' | translate }}"
-                ></md-switch>
-            </md-input-container>
-            <span>
-                {{ (vm.active ? 'ACTIVE' : 'PASSIVE') | translate }}
-            </span>
-
-            <span flex></span>
+            <md-button class="md-icon-button"
+                       aria-label="{{ 'DASHBOARD' | translate }}"
+                       href="#/"
+            >
+                <md-icon>dashboard</md-icon>
+                <md-tooltip>{{ 'DASHBOARD' | translate }}</md-tooltip>
+            </md-button>
 
             <md-button class="md-icon-button"
                        aria-label="{{ 'SETTINGS' | translate }}"
                        href="#/settings"
             >
                 <md-icon>settings</md-icon>
-            </md-button>
-
-            <md-button class="md-icon-button"
-                       aria-label="{{ 'LOGOUT' | translate }}"
-            >
-                <md-icon>close</md-icon>
+                <md-tooltip>{{ 'SETTINGS' | translate }}</md-tooltip>
             </md-button>
         </div>
     </md-toolbar>
