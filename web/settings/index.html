@@ -1,19 +1,47 @@
 <md-content layout="column" data-ng-controller="Settings.MainController as vm">
-    <form flex name="settings">
-        <md-input-container class="md-block">
-            <label>{{ ::'API_URL' | translate }}</label>
-            <input type="text" data-ng-model="vm.settings.url" required />
-        </md-input-container>
+    <md-card>
+        <md-card-title>
+            <h2 class="md-headline">{{ ::'WEB_API_SETTINGS' | translate }}</h2>
+        </md-card-title>
+        <md-card-content>
+            <form flex name="settings">
+                <md-input-container class="md-block">
+                    <label>{{ ::'API_URL' | translate }}</label>
+                    <input type="text" data-ng-model="vm.settings.url" required />
+                </md-input-container>
 
-        <md-input-container class="md-block">
-            <label>{{ ::'API_KEY' | translate }}</label>
-            <input type="password" data-ng-model="vm.settings.token" required />
-        </md-input-container>
+                <md-input-container class="md-block">
+                    <label>{{ ::'API_KEY' | translate }}</label>
+                    <input type="password" data-ng-model="vm.settings.token" required />
+                </md-input-container>
 
-        <md-content layout="row" layout-align="end center">
-            <md-button class="md-raised md-primary" data-ng-click="vm.saveAndTest()" data-ng-disabled="settings.$invalid">
-                {{ ::'SAVE_AND_TEST' | translate }}
-            </md-button>
-        </md-content>
-    </form>
+                <md-content layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary" data-ng-click="vm.saveAndTest()" data-ng-disabled="settings.$invalid">
+                        {{ ::'SAVE_AND_TEST' | translate }}
+                    </md-button>
+                </md-content>
+            </form>
+        </md-card-content>
+    </md-card>
+
+    <md-card>
+        <md-card-title>
+            <h2 class="md-headline">{{ ::'LOCAL_SETTINGS' | translate }}</h2>
+        </md-card-title>
+
+        <md-card-content>
+            <div layout="row" layout-align="start center">
+                <md-input-container>
+                    <md-button class="md-warn md-raised"
+                               data-ng-click="vm.resetInspectorData()"
+                    >
+                        {{ ::'RESET_ALL_DATA' | translate }}
+                    </md-button>
+                </md-input-container>
+                <p>{{ ::'RESET_ALL_DATA_DESCRIPTION' | translate }}</p>
+            </div>
+        </md-card-content>
+    </md-card>
+
+
 </md-content>
