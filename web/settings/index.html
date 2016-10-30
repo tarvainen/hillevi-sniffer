@@ -15,11 +15,11 @@
                     <input type="password" data-ng-model="vm.settings.token" required />
                 </md-input-container>
 
-                <md-content layout="row" layout-align="end center">
+                <div layout="row" layout-align="end center">
                     <md-button class="md-raised md-primary" data-ng-click="vm.saveAndTest()" data-ng-disabled="settings.$invalid">
                         {{ ::'SAVE_AND_TEST' | translate }}
                     </md-button>
-                </md-content>
+                </div>
             </form>
         </md-card-content>
     </md-card>
