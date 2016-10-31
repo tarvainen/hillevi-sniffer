@@ -79,6 +79,8 @@
                     item.activeTime = _.sum(_.map(item.titles, 'activeTime'));
                     item.windowsArray = $filter('toArray')(item.titles);
                 });
+
+                vm.localData.mousePositionArray = $filter('toArray')(vm.localData.mousePosition);
             });
         }
 

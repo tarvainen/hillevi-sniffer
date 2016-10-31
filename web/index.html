@@ -41,7 +41,13 @@
         </md-tab>
 
         <md-tab label="{{ ::'ANALYZER_MOUSE' | translate }}">
-
+            <div layout="row" class="md-padding">
+                <generic-widget
+                        data-model="vm.localData.mousePositionArray"
+                        data-title="{{ ::'MOUSE_POSITION_ACTIVITY' | translate }}"
+                        data-template="/web/dashboard/widgets/widget-mouse-position.html"
+                ></generic-widget>
+            </div>
         </md-tab>
 
         <md-tab label="{{ ::'ANALYZER_APPS' | translate }}">

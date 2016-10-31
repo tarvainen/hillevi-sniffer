@@ -162,7 +162,7 @@
         }
     }
 
-    LocalDataService.$inject = ['$rootScope', '$timeout', 'DataService'];
+    LocalDataService.$inject = ['$rootScope', '$timeout', '$interval', 'DataService'];
 
     /**
      * Data service for handling local data. This is needed to keep local data fully separated of the
@@ -170,21 +170,25 @@
      *
      * @param   {*} $rootScope
      * @param   {*} $timeout
+     * @param   {*} $interval
      * @param   {*} DataService
      *
      * @return {*}
      *
      * @constructor
      */
-    function LocalDataService ($rootScope, $timeout, DataService) {
+    function LocalDataService ($rootScope, $timeout, $interval, DataService) {
         var localData = DataService.storage.get('localData');
         var timeout = null;
+        localData.lastMousePosition = localData.lastMousePosition || '0,0';
 
         $rootScope.$on('keyReleased', onKeyReleased);
         $rootScope.$on('keyCombo', onKeyCombo);
         $rootScope.$on('mouseMoved', onMouseMoved);
         $rootScope.$on('mouseClicked', onMouseClicked);
         $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
+
+        $interval(mouseSnapshot, 1000);
 
         // Start automatic notification interval
         notify();
@@ -235,7 +239,12 @@
          * @param  {*}  data
          */
         function onMouseMoved (e, data) {
-            // TODO: handle mouse move events
+            var coordinates = data.split(',');
+            var x = Math.round(coordinates[0] / 100) * 100;
+            var y = window.screen.height - Math.round(coordinates[1] / 100) * 100;
+            y < 0 ? y = 0 : 0;
+
+            localData.lastMousePosition = x + ',' + y;
         }
 
         /**
@@ -275,6 +284,21 @@
         }
 
         /**
+         * Takes a snapshot of the mouse's position.
+         */
+        function mouseSnapshot () {
+            if (!localData.mousePosition[localData.lastMousePosition]) {
+                localData.mousePosition[localData.lastMousePosition] = {
+                    x: +localData.lastMousePosition.split(',')[0],
+                    y: +localData.lastMousePosition.split(',')[1],
+                    r: 0
+                };
+            }
+
+            localData.mousePosition[localData.lastMousePosition].r++;
+        }
+
+        /**
          * Notify the UI about the local data changes.
          */
         function notify () {
@@ -310,7 +334,8 @@
                     timestamp: new Date(),
                     value: 0
                 },
-                activeWindows: {}
+                activeWindows: {},
+                mousePosition: {}
             };
 
             DataService.storage.set('localData', localData);

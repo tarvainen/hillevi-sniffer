@@ -1,7 +1,6 @@
 {
   "APP": "Hillevi",
 
-
   "SAVE_AND_TEST": "Tallenna ja testaa yhteys",
   "API_URL": "Rajapintasi verkko-osoite (esim. https://hillevi-instanssisi.com/api)",
   "API_KEY": "Tunnistautumisavain",
@@ -25,6 +24,7 @@
   "ACTIVE_WINDOWS": "Aktiiviset sovellukset",
   "ZERO": "Nollaa",
   "TYPING_SPEED_TREND": "Kirjoitusnopeuden kehitys",
+  "MOUSE_POSITION_ACTIVITY": "Hiiren sijainti",
 
   // KEY COMBOS
   "COPY": "Kopioi",
