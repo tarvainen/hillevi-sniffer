@@ -23,29 +23,11 @@
      */
     function config ($routeProvider, $translateProvider, $compileProvider, ChartJsProvider) {
         // Setup chart.js
-        ChartJsProvider.setOptions('bubble', {
-            scales: {
-                responsive: false,
-                maintainAspectRatio: false,
-                xAxes: [{
-                    display: false,
-                    ticks: {
-                        max: window.screen.width,
-                        min: 0,
-                        stepSize: 10
-                    }
-                }],
-                yAxes: [{
-                    display: false,
-                    ticks: {
-                        max: window.screen.height,
-                        min: 0,
-                        stepSize: 10
-                    }
-                }]
-            },
-            animation: false,
-            tooltips: false
+        ChartJsProvider.setOptions({
+            global: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
         });
 
         $routeProvider

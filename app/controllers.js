@@ -33,8 +33,6 @@
     function MainController (
         $rootScope, $interval, InspectorDataService, DataService, $filter
     ) {
-        var vm = this;
-
         // Watch global events
         $rootScope.$on('mouseMoved', onMouseMoved);
         $rootScope.$on('mouseClicked', onMouseClicked);
@@ -50,21 +48,22 @@
          * we save the data to the local storage for later usage.
          */
         function sendData () {
-            if (!vm.active) {
-                // TODO: save to local storage and return
-                return;
-            }
-
-            var mouse = InspectorDataService.getAverageMousePosition();
-            var keys = InspectorDataService.getKeys();
-            var clicks = InspectorDataService.getClicks();
+            var mousePosition = InspectorDataService.getAverageMousePosition();
+            var keysPressed = InspectorDataService.getKeys();
+            var mouseClicks = InspectorDataService.getClicks();
+            var activeWindows = InspectorDataService.getActiveWindows();
+            var keyCombos = InspectorDataService.getKeyCombos();
 
             // Send data to the server
             DataService.get('/api/mod/pcinspect/push', {
                 data: [
                     {
-                        timestamp: $filter('date')(Date.now(), 'dd.MM.yyyy HH:mm:ss'),
-                        keys: keys
+                        time: InspectorDataService.getTimeRange(),
+                        keys: keysPressed,
+                        mousePosition: mousePosition,
+                        mouseClicks: mouseClicks,
+                        activeWindows: activeWindows,
+                        keyCombos: keyCombos
                     }
                 ]
             }).then(onSuccess);

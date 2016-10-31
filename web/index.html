@@ -40,7 +40,8 @@
             </md-content>
         </md-tab>
 
-        <md-tab label="{{ ::'ANALYZER_MOUSE' | translate }}">
+        <!-- The mouse analyzer is disabled for now because it sucks. -->
+        <!-- md-tab label="{{ ::'ANALYZER_MOUSE' | translate }}">
             <div layout="row" class="md-padding">
                 <generic-widget
                         data-model="vm.localData.mousePositionArray"
@@ -48,7 +49,7 @@
                         data-template="/web/dashboard/widgets/widget-mouse-position.html"
                 ></generic-widget>
             </div>
-        </md-tab>
+        </md-tab -->
 
         <md-tab label="{{ ::'ANALYZER_APPS' | translate }}">
             <div layout="row" class="md-padding">

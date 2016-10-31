@@ -40,16 +40,20 @@
             registerActiveWindow: registerActiveWindow,
             getKeys: getKeys,
             getClicks: getClicks,
-            getAverageMousePosition: getAverageMousePosition
+            getActiveWindows: getActiveWindows,
+            getKeyCombos: getKeyCombos,
+            getAverageMousePosition: getAverageMousePosition,
+            getTimeRange: getTimeRange
         };
 
         /**
          * Clear all the value arrays.
          */
         function reset () {
+            service.start = new Date();
             service.keys = {};
             service.clicks = [];
-            service.combos = [];
+            service.combos = {};
             service.stroke = 0;
             service.windows = {};
 
@@ -108,10 +112,16 @@
         /**
          * Push the detected key combo to the combo array.
          *
-         * @param {[]} combo
+         * @param {[]} data
          */
-        function registerKeyCombo (combo) {
-            service.combos.push(combo);
+        function registerKeyCombo (data) {
+            var combo = data.join(' + ');
+
+            if (!service.combos[combo]) {
+                service.combos[combo] = 0;
+            }
+
+            service.combos[combo]++;
         }
 
         /**
@@ -143,13 +153,13 @@
          * Get the average mouse position since the last reset. If mouse has not moved at all,
          * we will return the last position the mouse was stuck to.
          *
-         * @returns {*[]}
+         * @returns {*}
          */
         function getAverageMousePosition () {
-            return [
-                Math.round($filter('avg')(service.mouse.x)),
-                Math.round($filter('avg')(service.mouse.y))
-            ];
+            return {
+                x: Math.round($filter('avg')(service.mouse.x)),
+                y: Math.round($filter('avg')(service.mouse.y))
+            };
         }
 
         /**
@@ -158,7 +168,37 @@
          * @returns {*[]}
          */
         function getClicks () {
-            return $filter('mix')(service.clicks).join('\n');
+            return $filter('mix')(service.clicks);
+        }
+
+        /**
+         * Returns the registered active window data.
+         *
+         * @return {*}
+         */
+        function getActiveWindows () {
+            return service.windows;
+        }
+
+        /**
+         * Returns the registered key combos.
+         *
+         * @return {*}
+         */
+        function getKeyCombos () {
+            return service.combos;
+        }
+
+        /**
+         * Returns the time range.
+         *
+         * @return {*}
+         */
+        function getTimeRange () {
+            return {
+                start: $filter('date')(service.start, 'dd.MM.yyyy HH:mm:ss'),
+                end: $filter('date')(new Date(), 'dd.MM.yyyy HH:mm:ss')
+            };
         }
     }
 
@@ -324,6 +364,7 @@
          */
         function reset () {
             localData = {
+                lastMousePosition: '0,0',
                 currentTypingSpeed: 0,
                 keysToday: 0,
                 keyCombos: {
