@@ -74,6 +74,11 @@
                 vm.localData = data;
                 vm.localData.keyCombosArray = $filter('toArray')(vm.localData.keyCombos.combos);
                 vm.localData.activeWindowsArray = $filter('toArray')(vm.localData.activeWindows);
+
+                _.each(vm.localData.activeWindowsArray, function iterator (item) {
+                    item.activeTime = _.sum(_.map(item.titles, 'activeTime'));
+                    item.windowsArray = $filter('toArray')(item.titles);
+                });
             });
         }
 

@@ -1,6 +1,24 @@
 <md-list ng-cloak>
-    <md-list-item data-ng-repeat="window in vm.model | orderBy:'-activeTime' | limitTo: 5 track by $index">
-        <p>{{ window.app }}</p>
-        <span>{{ window.activeTime | countdown }}</span>
+    <md-list-item data-ng-repeat-start="app in vm.model | orderBy:'-activeTime' | limitTo: 5 track by $index">
+        <div class="layout-padding-horizontal" layout="row" layout-align="start center" flex data-ng-init="app.showNestedItems = false">
+            <md-button class="md-icon-button"
+                       data-ng-click="app.showNestedItems ? app.showNestedItems = false : app.showNestedItems = true"
+            >
+                <md-icon class="animated" data-ng-class="{ 'rotate-90-deg-cw': app.showNestedItems }">keyboard_arrow_right</md-icon>
+            </md-button>
+            <p class="truncate space-left">{{ app.app }}</p>
+            <span flex></span>
+            <span class="nowrap">{{ app.activeTime | countdown }}</span>
+        </div>
+    </md-list-item>
+    <md-list-item class="md-nested-list"
+                  data-ng-show="app.showNestedItems"
+                  data-ng-repeat-end data-ng-repeat="window in app.windowsArray | orderBy:'-activeTime' track by $index"
+    >
+        <div layout="row" layout-align="start center" flex>
+            <p class="truncate space-right">{{ window.title }}</p>
+            <span flex></span>
+            <span class="nowrap">{{ window.activeTime | countdown }}</span>
+        </div>
     </md-list-item>
 </md-list>

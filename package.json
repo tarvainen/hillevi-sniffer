@@ -38,7 +38,8 @@
     "angular-chart.js": "~1.0.3",
     "chart.js": "~2.3.0",
     "active-window": "~0.1.0",
-    "countdown": "~2.6.0"
+    "countdown": "~2.6.0",
+    "lodash": "~4.16.5"
   },
   "devDependencies": {
     "gaze": "~1.1.2"

@@ -14,3 +14,60 @@ md-card-title {
     padding-top: 5px !important;
     color: rgba(0, 0, 0, 0.6);
 }
+
+.md-nested-list {
+    padding-left: 80px !important;
+}
+
+.md-nested-list * {
+    color: rgb(100, 100, 100) !important;
+}
+
+.truncate {
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.space-right {
+    margin-right: 10px !important;
+}
+
+.space-left {
+    margin-left: 10px !important;
+}
+
+.rotate-90-deg-cw {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.animated {
+    transition: 0.2s;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.layout-padding-horizontal {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.layout-padding-vertical {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}

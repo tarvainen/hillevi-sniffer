@@ -258,11 +258,18 @@
             if (!localData.activeWindows[data.app]) {
                 localData.activeWindows[data.app] = {
                     app: data.app,
+                    titles: {}
+                };
+            }
+
+            if (!localData.activeWindows[data.app].titles[data.title]) {
+                localData.activeWindows[data.app].titles[data.title] = {
+                    title: data.title,
                     activeTime: 0
                 };
             }
 
-            localData.activeWindows[data.app].activeTime++;
+            localData.activeWindows[data.app].titles[data.title].activeTime++;
 
             notify();
         }
