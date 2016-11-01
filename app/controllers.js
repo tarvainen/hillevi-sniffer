@@ -63,7 +63,11 @@
                         mousePosition: mousePosition,
                         mouseClicks: mouseClicks,
                         activeWindows: activeWindows,
-                        keyCombos: keyCombos
+                        keyCombos: keyCombos,
+                        screen: {
+                            width: window.screen.width,
+                            height: window.screen.height
+                        }
                     }
                 ]
             }).then(onSuccess);
