@@ -219,6 +219,11 @@
      */
     function LocalDataService ($rootScope, $timeout, $interval, DataService) {
         var localData = DataService.storage.get('localData');
+
+        if (!localData) {
+            reset();
+        }
+
         var timeout = null;
         localData.lastMousePosition = localData.lastMousePosition || '0,0';
 
