@@ -131,13 +131,10 @@
          */
         function registerActiveWindow (data) {
             if (!service.windows[data.app]) {
-                service.windows[data.app] = {
-                    app: data.app,
-                    activeTime: 0
-                };
+                service.windows[data.app] = 0;
             }
 
-            service.windows[data.app].activeTime++;
+            service.windows[data.app]++;
         }
 
         /**
@@ -146,6 +143,7 @@
          * @returns {*[]}
          */
         function getKeys () {
+            service.keys.total = service.stroke;
             return service.keys;
         }
 
