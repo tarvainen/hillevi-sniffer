@@ -56,6 +56,7 @@
             service.combos = {};
             service.stroke = 0;
             service.windows = {};
+            service.keyDownTimes = [];
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -71,15 +72,16 @@
         /**
          * Add key to the pressed keys array.
          *
-         * @param {string} key
+         * @param {*} keyData
          */
-        function registerKeyPress (key) {
-            if (!service.keys[key]) {
-                service.keys[key] = 0;
+        function registerKeyPress (keyData) {
+            if (!service.keys[keyData.key]) {
+                service.keys[keyData.key] = 0;
             }
 
-            service.keys[key]++;
+            service.keys[keyData.key]++;
             service.stroke++;
+            service.keyDownTimes.push(keyData.downTime);
         }
 
         /**
@@ -144,6 +146,7 @@
          */
         function getKeys () {
             service.keys.total = service.stroke;
+            service.keys.keyDownTime = $filter('avg')(service.keyDownTimes);
             return service.keys;
         }
 

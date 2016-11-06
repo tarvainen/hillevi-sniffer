@@ -32,9 +32,12 @@
 
         var pressed = [];
         var comboBit = false;
+        var timingKeys = {};
 
         // Global listener for key press event
         gkm.events.on('key.pressed', function (e) {
+            timingKeys[e[0]] = Date.now();
+
             if (pressed.indexOf(e[0]) < 0) {
                 pressed.push(e[0]);
             }
@@ -44,6 +47,8 @@
 
         // Global listener for key released event
         gkm.events.on('key.released', function (e) {
+            var duration = Date.now() - timingKeys[e[0]];
+
             var key = $filter('$key')(e[0]);
 
             if (pressed.length > 1 && comboBit) {
@@ -54,7 +59,10 @@
 
             pressed.splice(pressed.indexOf(e[0]), 1);
 
-            $rootScope.$emit('keyReleased', key);
+            $rootScope.$emit('keyReleased', {
+                key: key,
+                downTime: duration
+            });
         });
 
         // Global listener for the mouse move event
