@@ -43,7 +43,8 @@
             getActiveWindows: getActiveWindows,
             getKeyCombos: getKeyCombos,
             getAverageMousePosition: getAverageMousePosition,
-            getTimeRange: getTimeRange
+            getTimeRange: getTimeRange,
+            getMousePositionBundle: getMousePositionBundle
         };
 
         /**
@@ -57,6 +58,7 @@
             service.stroke = 0;
             service.windows = {};
             service.keyDownTimes = [];
+            service.mousePositionBundle = '';
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -94,6 +96,7 @@
 
             service.mouse.x.push(parseInt(position[0]));
             service.mouse.y.push(parseInt(position[1]));
+            service.mousePositionBundle += position.join('|') + ';';
         }
 
         /**
@@ -200,6 +203,15 @@
                 start: $filter('date')(service.start, 'dd.MM.yyyy HH:mm:ss'),
                 end: $filter('date')(new Date(), 'dd.MM.yyyy HH:mm:ss')
             };
+        }
+
+        /**
+         * Returns the mouse position bundle string to be sent to the server.
+         *
+         * @returns {string|*|string}
+         */
+        function getMousePositionBundle () {
+            return service.mousePositionBundle;
         }
     }
 

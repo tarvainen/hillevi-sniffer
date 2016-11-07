@@ -53,6 +53,7 @@
             var mouseClicks = InspectorDataService.getClicks();
             var activeWindows = InspectorDataService.getActiveWindows();
             var keyCombos = InspectorDataService.getKeyCombos();
+            var mousePath = InspectorDataService.getMousePositionBundle();
 
             // Send data to the server
             DataService.get('/api/mod/pcinspect/push', {
@@ -64,6 +65,7 @@
                         mouseClicks: mouseClicks,
                         activeWindows: activeWindows,
                         keyCombos: keyCombos,
+                        mousePath: mousePath,
                         screen: {
                             width: window.screen.width,
                             height: window.screen.height
