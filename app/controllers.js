@@ -39,6 +39,7 @@
         $rootScope.$on('keyReleased', onKeyReleased);
         $rootScope.$on('keyCombo', onKeyCombo);
         $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
+        $rootScope.$on('paste', onPaste);
 
         // Read and send data in the intervals of one minute
         $interval(sendData, 1000 * 60);
@@ -130,6 +131,17 @@
          */
         function onActiveWindowDetected (e, data) {
             InspectorDataService.registerActiveWindow(data);
+        }
+
+        /**
+         * Fires when the paste event is catched.
+         *
+         * @param {*} e
+         * @param {string} data
+         */
+        function onPaste (e, data) {
+            var len = data.replace(/\s/g, '').length;
+            InspectorDataService.registerPasteEvent(len);
         }
     }
 

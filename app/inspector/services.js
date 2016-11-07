@@ -38,6 +38,7 @@
             registerMouseClick: registerMouseClick,
             registerKeyCombo: registerKeyCombo,
             registerActiveWindow: registerActiveWindow,
+            registerPasteEvent: registerPasteEvent,
             getKeys: getKeys,
             getClicks: getClicks,
             getActiveWindows: getActiveWindows,
@@ -59,6 +60,7 @@
             service.windows = {};
             service.keyDownTimes = [];
             service.mousePositionBundle = '';
+            service.pasted = 0;
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -143,6 +145,15 @@
         }
 
         /**
+         * Register the paste event.
+         *
+         * @param {number} len
+         */
+        function registerPasteEvent (len) {
+            service.pasted += len;
+        }
+
+        /**
          * Get all registered keys.
          *
          * @returns {*[]}
@@ -150,6 +161,7 @@
         function getKeys () {
             service.keys.total = service.stroke;
             service.keys.keyDownTime = $filter('avg')(service.keyDownTimes);
+            service.keys.pasted = service.pasted;
             return service.keys;
         }
 

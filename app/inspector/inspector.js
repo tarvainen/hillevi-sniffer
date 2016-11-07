@@ -52,6 +52,15 @@
             var key = $filter('$key')(e[0]);
 
             if (pressed.length > 1 && comboBit) {
+                if (angular.equals(pressed, ['Left Control', 'V']) ||
+                    angular.equals(pressed, ['Right Control', 'V'])
+                ) {
+                    // Yes, we really have always to require this again and again
+                    var gui = require('nw.gui');
+                    var clipboard = gui.Clipboard.get();
+                    $rootScope.$emit('paste', clipboard.get('text'));
+                }
+
                 $rootScope.$emit('keyCombo', pressed);
             }
 
