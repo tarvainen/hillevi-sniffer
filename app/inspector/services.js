@@ -27,6 +27,7 @@
      */
     function InspectorDataService ($filter) {
         var service = this;
+        var idleStart = -1;
 
         // Initialize values
         reset();
@@ -39,7 +40,8 @@
             registerKeyCombo: registerKeyCombo,
             registerActiveWindow: registerActiveWindow,
             registerPasteEvent: registerPasteEvent,
-            registerIdleTime: registerIdleTime,
+            registerIdleStart: registerIdleStart,
+            registerIdleEnd: registerIdleEnd,
             getKeys: getKeys,
             getClicks: getClicks,
             getActiveWindows: getActiveWindows,
@@ -157,12 +159,18 @@
         }
 
         /**
-         * Register the idle time.
-         *
-         * @param {number} time
+         * Register the idle start.
          */
-        function registerIdleTime (time) {
-            service.idleTime += time;
+        function registerIdleStart () {
+            idleStart = Date.now();
+        }
+
+        /**
+         * Register the idle end.
+         */
+        function registerIdleEnd () {
+            service.idleTime += Date.now() - idleStart;
+            idleStart = -1;
         }
 
         /**
@@ -244,6 +252,11 @@
          * @returns {*}
          */
         function getCommonUsageDataBundle () {
+            if (idleStart !== -1) {
+                registerIdleEnd();
+                registerIdleStart();
+            }
+
             return {
                 idleTime: service.idleTime
             };

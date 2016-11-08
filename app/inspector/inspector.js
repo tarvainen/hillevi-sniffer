@@ -51,7 +51,7 @@
 
             // And so we have detected idle!
             if (idleBegin !== -1) {
-                InspectorDataService.registerIdleTime(Date.now() - idleBegin);
+                InspectorDataService.registerIdleEnd();
                 idleBegin = -1;
             }
 
@@ -61,6 +61,7 @@
              * TODO: still I think that we should retrieve that from some kind of config
              */
             idleListener = $timeout(function () {
+                InspectorDataService.registerIdleStart();
                 idleBegin = Date.now();
             }, 5000);
         }
