@@ -25,9 +25,9 @@
 
             <div layout="row" class="md-padding">
                 <generic-widget
-                    data-model="vm.tmpData.typingSpeedTrend"
-                    data-title="{{ ::'TYPING_SPEED_TREND' | translate }}"
-                    data-template="/web/dashboard/widgets/widget-typing-speed-trend.html"
+                        data-model="vm.tmpData.typingSpeedTrend"
+                        data-title="{{ ::'TYPING_SPEED_TREND' | translate }}"
+                        data-template="/web/dashboard/widgets/widget-typing-speed-trend.html"
                 ></generic-widget>
             </div>
 
@@ -39,17 +39,6 @@
                 ></generic-widget>
             </md-content>
         </md-tab>
-
-        <!-- The mouse analyzer is disabled for now because it sucks. -->
-        <!-- md-tab label="{{ ::'ANALYZER_MOUSE' | translate }}">
-            <div layout="row" class="md-padding">
-                <generic-widget
-                        data-model="vm.localData.mousePositionArray"
-                        data-title="{{ ::'MOUSE_POSITION_ACTIVITY' | translate }}"
-                        data-template="/web/dashboard/widgets/widget-mouse-position.html"
-                ></generic-widget>
-            </div>
-        </md-tab -->
 
         <md-tab label="{{ ::'ANALYZER_APPS' | translate }}">
             <div layout="row" class="md-padding">

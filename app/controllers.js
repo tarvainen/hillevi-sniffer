@@ -16,7 +16,7 @@
     ////////////
 
     MainController.$inject = [
-        '$rootScope', '$interval', 'InspectorDataService', 'DataService', '$filter'
+        '$rootScope', '$interval', 'InspectorDataService', 'DataService'
     ];
 
     /**
@@ -26,12 +26,11 @@
      * @param {*} $interval
      * @param {*} InspectorDataService
      * @param {*} DataService
-     * @param {*} $filter
      *
      * @constructor
      */
     function MainController (
-        $rootScope, $interval, InspectorDataService, DataService, $filter
+        $rootScope, $interval, InspectorDataService, DataService
     ) {
         // Watch global events
         $rootScope.$on('mouseMoved', onMouseMoved);
