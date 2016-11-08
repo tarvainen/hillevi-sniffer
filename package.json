@@ -1,5 +1,5 @@
 {
-  "name": "hillevi-pc-client",
+  "name": "hillevi-sniffer",
   "version": "0.0.0",
   "description": "",
   "main": "index.html",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/tarvainen/hillevi-pc-client"
+    "url": "http://github.com/tarvainen/hillevi-sniffer"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/tarvainen/hillevi-pc-client/issues"
+    "url": "https://github.com/tarvainen/hillevi-sniffer/issues"
   },
   "dependencies": {
     "nw": "~0.18.1",

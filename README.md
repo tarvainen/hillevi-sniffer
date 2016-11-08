@@ -1,4 +1,4 @@
-# hillevi-pc-client
+# hillevi-sniffer
 
 ## Requirements
 * Java
