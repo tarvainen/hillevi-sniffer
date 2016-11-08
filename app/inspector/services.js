@@ -39,13 +39,15 @@
             registerKeyCombo: registerKeyCombo,
             registerActiveWindow: registerActiveWindow,
             registerPasteEvent: registerPasteEvent,
+            registerIdleTime: registerIdleTime,
             getKeys: getKeys,
             getClicks: getClicks,
             getActiveWindows: getActiveWindows,
             getKeyCombos: getKeyCombos,
             getAverageMousePosition: getAverageMousePosition,
             getTimeRange: getTimeRange,
-            getMousePositionBundle: getMousePositionBundle
+            getMousePositionBundle: getMousePositionBundle,
+            getCommonUsageDataBundle: getCommonUsageDataBundle
         };
 
         /**
@@ -61,6 +63,7 @@
             service.keyDownTimes = [];
             service.mousePositionBundle = '';
             service.pasted = 0;
+            service.idleTime = 0.0;
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -154,6 +157,15 @@
         }
 
         /**
+         * Register the idle time.
+         *
+         * @param {number} time
+         */
+        function registerIdleTime (time) {
+            service.idleTime += time;
+        }
+
+        /**
          * Get all registered keys.
          *
          * @returns {*[]}
@@ -224,6 +236,17 @@
          */
         function getMousePositionBundle () {
             return service.mousePositionBundle;
+        }
+
+        /**
+         * Returns an object containing some common usage data.
+         *
+         * @returns {*}
+         */
+        function getCommonUsageDataBundle () {
+            return {
+                idleTime: service.idleTime
+            };
         }
     }
 

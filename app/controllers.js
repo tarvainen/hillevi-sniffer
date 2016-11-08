@@ -16,13 +16,12 @@
     ////////////
 
     MainController.$inject = [
-        '$rootScope', '$interval', 'InspectorDataService', 'DataService'
+        '$interval', 'InspectorDataService', 'DataService'
     ];
 
     /**
      * Main controller for the whole app.
      *
-     * @param {*} $rootScope
      * @param {*} $interval
      * @param {*} InspectorDataService
      * @param {*} DataService
@@ -30,16 +29,8 @@
      * @constructor
      */
     function MainController (
-        $rootScope, $interval, InspectorDataService, DataService
+        $interval, InspectorDataService, DataService
     ) {
-        // Watch global events
-        $rootScope.$on('mouseMoved', onMouseMoved);
-        $rootScope.$on('mouseClicked', onMouseClicked);
-        $rootScope.$on('keyReleased', onKeyReleased);
-        $rootScope.$on('keyCombo', onKeyCombo);
-        $rootScope.$on('activeWindowDetected', onActiveWindowDetected);
-        $rootScope.$on('paste', onPaste);
-
         // Read and send data in the intervals of one minute
         $interval(sendData, 1000 * 60);
 
@@ -54,6 +45,7 @@
             var activeWindows = InspectorDataService.getActiveWindows();
             var keyCombos = InspectorDataService.getKeyCombos();
             var mousePath = InspectorDataService.getMousePositionBundle();
+            var common = InspectorDataService.getCommonUsageDataBundle();
 
             // Send data to the server
             DataService.get('/api/mod/pcinspect/push', {
@@ -66,6 +58,7 @@
                         activeWindows: activeWindows,
                         keyCombos: keyCombos,
                         mousePath: mousePath,
+                        common: common,
                         screen: {
                             width: window.screen.width,
                             height: window.screen.height
@@ -80,67 +73,6 @@
             function onSuccess () {
                 InspectorDataService.reset();
             }
-        }
-
-        /**
-         * Fired when the mouse is moved.
-         *
-         * @param   {*}  e
-         * @param   {*} data
-         */
-        function onMouseMoved (e, data) {
-            InspectorDataService.registerMouseMove(data);
-        }
-
-        /**
-         * Fired when the mouse is clicked.
-         *
-         * @param   {*}  e
-         * @param   {*} data
-         */
-        function onMouseClicked (e, data) {
-            InspectorDataService.registerMouseClick(data);
-        }
-
-        /**
-         * Fired when a keyboard key is released.
-         *
-         * @param   {*}  e
-         * @param   {*} data
-         */
-        function onKeyReleased (e, data) {
-            InspectorDataService.registerKeyPress(data);
-        }
-
-        /**
-         * Fired when a key combo is detected.
-         *
-         * @param   {*}  e
-         * @param   {*} data
-         */
-        function onKeyCombo (e, data) {
-            InspectorDataService.registerKeyCombo(data);
-        }
-
-        /**
-         * Fires when the active window information is fetched.
-         *
-         * @param   {*}  e
-         * @param   {*} data
-         */
-        function onActiveWindowDetected (e, data) {
-            InspectorDataService.registerActiveWindow(data);
-        }
-
-        /**
-         * Fires when the paste event is catched.
-         *
-         * @param {*} e
-         * @param {string} data
-         */
-        function onPaste (e, data) {
-            var len = data.replace(/\s/g, '').length;
-            InspectorDataService.registerPasteEvent(len);
         }
     }
 
