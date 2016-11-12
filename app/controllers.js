@@ -46,6 +46,7 @@
             var keyCombos = InspectorDataService.getKeyCombos();
             var mousePath = InspectorDataService.getMousePositionBundle();
             var common = InspectorDataService.getCommonUsageDataBundle();
+            var mouseTravelDistance = InspectorDataService.getMouseTravelDistance();
 
             // Send data to the server
             DataService.get('/api/mod/pcinspect/push', {
@@ -54,6 +55,7 @@
                         time: InspectorDataService.getTimeRange(),
                         keys: keysPressed,
                         mousePosition: mousePosition,
+                        mouseTravelDistance: mouseTravelDistance,
                         mouseClicks: mouseClicks,
                         activeWindows: activeWindows,
                         keyCombos: keyCombos,

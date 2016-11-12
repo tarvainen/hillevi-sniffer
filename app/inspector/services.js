@@ -49,7 +49,8 @@
             getAverageMousePosition: getAverageMousePosition,
             getTimeRange: getTimeRange,
             getMousePositionBundle: getMousePositionBundle,
-            getCommonUsageDataBundle: getCommonUsageDataBundle
+            getCommonUsageDataBundle: getCommonUsageDataBundle,
+            getMouseTravelDistance: getMouseTravelDistance
         };
 
         /**
@@ -66,6 +67,7 @@
             service.mousePositionBundle = '';
             service.pasted = 0;
             service.idleTime = 0.0;
+            service.mouseTravelDistance = 0;
 
             if (service.mouse && service.mouse.x.length > 0) {
                 service.mouse.x = [service.mouse.x.pop()];
@@ -101,8 +103,18 @@
         function registerMouseMove (pos) {
             var position = pos.split(',');
 
-            service.mouse.x.push(parseInt(position[0]));
-            service.mouse.y.push(parseInt(position[1]));
+            var x1 = service.mouse.x[service.mouse.x.length - 1] || 0;
+            var y1 = service.mouse.y[service.mouse.y.length - 1] || 0;
+
+            var x2 = parseInt(position[0]);
+            var y2 = parseInt(position[1]);
+
+            service.mouseTravelDistance += Math.sqrt(
+                Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2)
+            );
+
+            service.mouse.x.push(x2);
+            service.mouse.y.push(y2);
             service.mousePositionBundle += position.join('|') + ';';
         }
 
@@ -260,6 +272,15 @@
             return {
                 idleTime: service.idleTime
             };
+        }
+
+        /**
+         * Returns the mouse travel distance.
+         *
+         * @returns {number|*}
+         */
+        function getMouseTravelDistance () {
+            return service.mouseTravelDistance;
         }
     }
 
