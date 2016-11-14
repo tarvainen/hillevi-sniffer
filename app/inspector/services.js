@@ -41,15 +41,7 @@
             registerPasteEvent: registerPasteEvent,
             registerIdleStart: registerIdleStart,
             registerIdleEnd: registerIdleEnd,
-            getKeys: getKeys,
-            getClicks: getClicks,
-            getActiveWindows: getActiveWindows,
-            getKeyCombos: getKeyCombos,
-            getAverageMousePosition: getAverageMousePosition,
-            getTimeRange: getTimeRange,
-            getMousePositionBundle: getMousePositionBundle,
-            getCommonUsageDataBundle: getCommonUsageDataBundle,
-            getMouseTravelDistance: getMouseTravelDistance
+            getBundledData: getBundledData
         };
 
         /**
@@ -280,6 +272,41 @@
          */
         function getMouseTravelDistance () {
             return service.mouseTravelDistance;
+        }
+
+        /**
+         * Returns the data bundle to be pushed to the server.
+         *
+         * NOTE: this will not clear the data in the service. You must
+         * do that manually by calling InspectorDataService::reset()
+         *
+         * @return {*}
+         */
+        function getBundledData () {
+            var mousePosition       = getAverageMousePosition();
+            var keysPressed         = getKeys();
+            var mouseClicks         = getClicks();
+            var activeWindows       = getActiveWindows();
+            var keyCombos           = getKeyCombos();
+            var mousePath           = getMousePositionBundle();
+            var common              = getCommonUsageDataBundle();
+            var mouseTravelDistance = getMouseTravelDistance();
+
+            return {
+                time: getTimeRange(),
+                keys: keysPressed,
+                mousePosition: mousePosition,
+                mouseTravelDistance: mouseTravelDistance,
+                mouseClicks: mouseClicks,
+                activeWindows: activeWindows,
+                keyCombos: keyCombos,
+                mousePath: mousePath,
+                common: common,
+                screen: {
+                    width: window.screen.width,
+                    height: window.screen.height
+                }
+            };
         }
     }
 

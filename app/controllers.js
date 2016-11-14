@@ -40,41 +40,25 @@
          * we save the data to the local storage for later usage.
          */
         function sendData () {
-            var mousePosition       = InspectorDataService.getAverageMousePosition();
-            var keysPressed         = InspectorDataService.getKeys();
-            var mouseClicks         = InspectorDataService.getClicks();
-            var activeWindows       = InspectorDataService.getActiveWindows();
-            var keyCombos           = InspectorDataService.getKeyCombos();
-            var mousePath           = InspectorDataService.getMousePositionBundle();
-            var common              = InspectorDataService.getCommonUsageDataBundle();
-            var mouseTravelDistance = InspectorDataService.getMouseTravelDistance();
+            var data = InspectorDataService.getBundledData();
 
             // Send data to the server
             DataService.get('/api/mod/pcinspect/push', {
-                data: [
-                    {
-                        time: InspectorDataService.getTimeRange(),
-                        keys: keysPressed,
-                        mousePosition: mousePosition,
-                        mouseTravelDistance: mouseTravelDistance,
-                        mouseClicks: mouseClicks,
-                        activeWindows: activeWindows,
-                        keyCombos: keyCombos,
-                        mousePath: mousePath,
-                        common: common,
-                        screen: {
-                            width: window.screen.width,
-                            height: window.screen.height
-                        }
-                    }
-                ]
-            }).then(onSuccess);
+                data: [ data ] // api reads data in arrays
+            }).then(onSuccess, onError);
 
             /**
              * Fired when the data is successfully sent to the server.
              */
             function onSuccess () {
                 InspectorDataService.reset();
+            }
+
+            /**
+             * Error handler.
+             */
+            function onError () {
+                // TODO: handle error
             }
         }
     }

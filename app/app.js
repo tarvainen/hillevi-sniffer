@@ -10,6 +10,7 @@
         'App.Config',
         'App.Controllers',
         'App.Services',
+        'App.Filters',
         'App.Inspector',
         'App.Dashboard',
         'Settings'
