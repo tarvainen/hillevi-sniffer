@@ -139,7 +139,7 @@
                     title: strip(window.title)
                 };
 
-                $rootScope.$emit('activeApp', data);
+                $rootScope.$emit('appChanged', data);
                 InspectorDataService.registerActiveWindow(data);
             });
 

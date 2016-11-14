@@ -1,3 +1,14 @@
-<md-content layout="column" layout-fill>
-    <keyboard data-keys="vm.keys"></keyboard>
+<md-content layout="column" layout-fill style="overflow-y: scroll">
+    <div md-whiteframe="4" class="layout-margin">
+        <h1 class="md-headline">{{ ::'ACTIVE_APP' | translate }}</h1>
+        <h1 class="md-headline text-muted">{{ vm.activeApp }}</h1>
+    </div>
+
+    <div md-whiteframe="4" class="layout-margin">
+        <keyboard data-keys="vm.keys"></keyboard>
+    </div>
+
+    <div class="layout-margin">
+        <canvas id="canvas"></canvas>
+    </div>
 </md-content>

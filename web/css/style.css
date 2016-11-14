@@ -99,3 +99,19 @@ md-card-title {
 .kbutton.on {
     background: rgba(255, 0, 0, 1);
 }
+
+.kboard {
+    display: block !important;
+}
+
+#canvas {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.text-muted {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 100%;
+}

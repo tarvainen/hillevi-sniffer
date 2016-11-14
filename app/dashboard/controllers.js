@@ -31,6 +31,8 @@
 
         vm.keys = {};
 
+        var lastCoord = [0, 0];
+
         $rootScope.$on('keydown', function (e, data) {
             $timeout(function () {
                 vm.keys[data] = 1;
@@ -44,11 +46,21 @@
         });
 
         $rootScope.$on('mousemove', function (e, data) {
-            // TODO: handle mousemove
+            var coordinates = data.split(',');
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            ctx.beginPath();
+
+            ctx.moveTo(lastCoord[0] * (canvas.clientWidth / window.screen.width), lastCoord[1] * (canvas.clientHeight / window.screen.height));
+            ctx.lineTo(parseInt(coordinates[0]) * (canvas.clientWidth / window.screen.width), parseInt(coordinates[1]) * (canvas.clientHeight / window.screen.height));
+            lastCoord = coordinates;
+
+            ctx.stroke();
         });
 
         $rootScope.$on('appChanged', function (e, data) {
-            // TODO: handle appChanged
+            vm.activeApp = data.app;
         });
     }
 
