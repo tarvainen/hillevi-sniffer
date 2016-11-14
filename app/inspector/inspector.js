@@ -135,7 +135,7 @@
         $interval(function () {
             activeWindow.getActiveWindow(function (window) {
                 var data = {
-                    app: strip(window.app.replace(/\s/g, '')).split(',')[1],
+                    app: window.app.indexOf(',') >= 0 ? strip(window.app.replace(/\s/g, '')).split(',')[1] : window.app,
                     title: strip(window.title)
                 };
 
