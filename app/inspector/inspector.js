@@ -70,6 +70,8 @@
         gkm.events.on('key.pressed', function (e) {
             timingKeys[e[0]] = Date.now();
 
+            $rootScope.$emit('keydown', $filter('$key')(e[0]));
+
             if (pressed.indexOf(e[0]) < 0) {
                 pressed.push(e[0]);
             }
@@ -97,7 +99,6 @@
                     InspectorDataService.registerPasteEvent(len);
                 }
 
-                $rootScope.$emit('keyCombo', pressed);
                 InspectorDataService.registerKeyCombo(pressed);
             }
 
@@ -105,29 +106,25 @@
 
             pressed.splice(pressed.indexOf(e[0]), 1);
 
-            $rootScope.$emit('keyReleased', {
-                key: key,
-                downTime: duration
-            });
-
             InspectorDataService.registerKeyPress({
                 key: key,
                 downTime: duration
             });
+
+            $rootScope.$emit('keyup', key);
 
             resetIdleListener();
         });
 
         // Global listener for the mouse move event
         gkm.events.on('mouse.moved', function (e) {
-            $rootScope.$emit('mouseMoved', e[0]);
+            $rootScope.$emit('mousemove', e[0]);
             InspectorDataService.registerMouseMove(e[0]);
             resetIdleListener();
         });
 
         // Global listener for the mouse press event
         gkm.events.on('mouse.pressed', function (e) {
-            $rootScope.$emit('mouseClicked', e[0]);
             InspectorDataService.registerMouseClick(e[0]);
             resetIdleListener();
         });
@@ -142,7 +139,7 @@
                     title: strip(window.title)
                 };
 
-                $rootScope.$emit('activeWindowDetected', data);
+                $rootScope.$emit('activeApp', data);
                 InspectorDataService.registerActiveWindow(data);
             });
 

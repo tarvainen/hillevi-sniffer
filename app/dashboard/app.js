@@ -5,7 +5,8 @@
      * Main module initialization.
      */
     angular.module('App.Dashboard', [
-        'App.Dashboard.Controllers'
+        'App.Dashboard.Controllers',
+        'App.Dashboard.Directives'
     ]);
 
 })();

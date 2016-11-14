@@ -7,8 +7,10 @@
     "start": "nw --remote-debugging-port=8001"
   },
   "window": {
-    "width": 800,
-    "height": 600
+    "width": 1080,
+    "height": 600,
+    "min_height": 500,
+    "min_width": 800
   },
   "repository": {
     "type": "git",

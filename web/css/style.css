@@ -71,3 +71,31 @@ md-card-title {
     padding-top: 16px;
     padding-bottom: 16px;
 }
+
+.kbutton {
+    height: 50px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    transition: 0.2s;
+}
+
+.kspace {
+    position: relative;
+    display: inline-block;
+}
+
+.kbutton span {
+    position: absolute;
+    font-size: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.kbutton.on {
+    background: rgba(255, 0, 0, 1);
+}

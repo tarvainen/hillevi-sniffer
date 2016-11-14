@@ -1,0 +1,10 @@
+<div class="kboard" layout="column">
+    <div layout="row" flex data-ng-repeat="row in vm.layout">
+        <div data-ng-class="{ kbutton: button.text !== '', kspace: button.text === '', on: vm.keys[button.key] == 1 }"
+             flex="{{ ::button.cols * 5 }}"
+             data-ng-repeat="button in row"
+        >
+            <span>{{ ::button.text }}</span>
+        </div>
+    </div>
+</div>
