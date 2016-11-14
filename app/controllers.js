@@ -32,6 +32,7 @@
         $interval, InspectorDataService, DataService
     ) {
         // Read and send data in the intervals of one minute
+        // TODO: read from settings
         $interval(sendData, 1000 * 60);
 
         /**
@@ -39,13 +40,13 @@
          * we save the data to the local storage for later usage.
          */
         function sendData () {
-            var mousePosition = InspectorDataService.getAverageMousePosition();
-            var keysPressed = InspectorDataService.getKeys();
-            var mouseClicks = InspectorDataService.getClicks();
-            var activeWindows = InspectorDataService.getActiveWindows();
-            var keyCombos = InspectorDataService.getKeyCombos();
-            var mousePath = InspectorDataService.getMousePositionBundle();
-            var common = InspectorDataService.getCommonUsageDataBundle();
+            var mousePosition       = InspectorDataService.getAverageMousePosition();
+            var keysPressed         = InspectorDataService.getKeys();
+            var mouseClicks         = InspectorDataService.getClicks();
+            var activeWindows       = InspectorDataService.getActiveWindows();
+            var keyCombos           = InspectorDataService.getKeyCombos();
+            var mousePath           = InspectorDataService.getMousePositionBundle();
+            var common              = InspectorDataService.getCommonUsageDataBundle();
             var mouseTravelDistance = InspectorDataService.getMouseTravelDistance();
 
             // Send data to the server

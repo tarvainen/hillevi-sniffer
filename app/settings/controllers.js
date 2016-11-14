@@ -15,18 +15,17 @@
 
     //////////////
 
-    MainController.$inject = ['SettingsDataService', 'LocalDataService', '$toast'];
+    MainController.$inject = ['SettingsDataService', '$toast'];
 
     /**
      * Main controller for the settings interface.
      *
      * @param {*} SettingsDataService
-     * @param {*} LocalDataService
      * @param {*} $toast
      *
      * @constructor
      */
-    function MainController (SettingsDataService, LocalDataService, $toast) {
+    function MainController (SettingsDataService, $toast) {
         var vm = this;
 
         vm.settings = SettingsDataService.getSettings();
@@ -53,12 +52,5 @@
                 $toast('API_CONNECTION_TEST_FAILED');
             }
         };
-
-        /**
-         * Call the inspector data service to reset itself.
-         */
-        vm.resetInspectorData = function resetInspectorData () {
-            LocalDataService.reset();
-        }
     }
 })();
