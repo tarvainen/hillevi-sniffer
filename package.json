@@ -32,7 +32,7 @@
     "angular-translate": "~2.12.1",
     "chart.js": "~2.3.0",
     "countdown": "~2.6.0",
-    "gkm": "~0.1.0",
+    "gkm": "git+https://github.com/tarvainen/gkm.git",
     "grunt": "~1.0.1",
     "grunt-contrib-copy": "~1.0.0",
     "grunt-contrib-cssmin": "~1.0.2",
