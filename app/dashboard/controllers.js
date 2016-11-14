@@ -48,6 +48,11 @@
         $rootScope.$on('mousemove', function (e, data) {
             var coordinates = data.split(',');
             var canvas = document.getElementById('canvas');
+
+            if (!canvas) {
+                return;
+            }
+
             var ctx = canvas.getContext('2d');
 
             ctx.beginPath();
