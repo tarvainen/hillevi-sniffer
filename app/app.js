@@ -7,11 +7,9 @@
     angular.module('App', [
         'ngMaterial',
         'pascalprecht.translate',
-        'chart.js',
         'App.Config',
         'App.Controllers',
         'App.Services',
-        'App.Filters',
         'App.Inspector',
         'App.Dashboard',
         'Settings'

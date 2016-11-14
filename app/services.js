@@ -11,7 +11,6 @@
      */
     angular.module('App.Services')
         .factory('DataService', DataService)
-        .factory('UIService', UIService)
         .factory('$toast', $toast)
     ;
     
@@ -77,48 +76,6 @@
          */
         function setToStorage (key, value) {
             return $window.localStorage.setItem(key, JSON.stringify(value));
-        }
-    }
-
-    /**
-     * Service for the ui data handling.
-     *
-     * @return {*}
-     *
-     * @constructor
-     */
-    function UIService () {
-        var colors = [
-            '#F4DCFE',
-            '#FFA8A8',
-            '#FF73B9',
-            '#A9C5EB',
-            '#72FE95',
-            '#86BCFF',
-            '#80B584'
-        ];
-
-        return {
-            getColors: getColors,
-            getRandomColor: getRandomColor
-        };
-
-        /**
-         * Function to fetch array of random color to be attached like to a random colored text.
-         *
-         * @return {*}
-         */
-        function getColors () {
-            return colors;
-        }
-
-        /**
-         * Returns a random color from the random color array.
-         *
-         * @return {string}
-         */
-        function getRandomColor () {
-            return colors[Math.round(Math.random() * colors.length)];
         }
     }
 

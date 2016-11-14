@@ -19,17 +19,8 @@
      * @param {*} $routeProvider
      * @param {*} $translateProvider
      * @param {*} $compileProvider
-     * @param {*} ChartJsProvider
      */
-    function config ($routeProvider, $translateProvider, $compileProvider, ChartJsProvider) {
-        // Setup chart.js
-        ChartJsProvider.setOptions({
-            global: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
+    function config ($routeProvider, $translateProvider, $compileProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'web/index.html',
@@ -50,12 +41,5 @@
         $translateProvider.useSanitizeValueStrategy(false);
 
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-
-        // Define countdown's display format
-        countdown.setFormat({
-            plural: 'ms|s|min|h|d||||',
-            singular: 'ms|s|min|h|d||||',
-            last: ' '
-        });
     }
 })();
