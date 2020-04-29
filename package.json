@@ -41,7 +41,7 @@
     "grunt-strip-json-comments": "~2.2.0",
     "lodash": "~4.16.5",
     "material-design-icons": "~3.0.1",
-    "nw": "~0.18.1"
+    "nw": "~0.45.4"
   },
   "devDependencies": {
     "gaze": "~1.1.2"
