@@ -39,7 +39,7 @@
     "grunt-contrib-uglify": "~2.0.0",
     "grunt-contrib-watch": "~1.0.0",
     "grunt-strip-json-comments": "~2.2.0",
-    "lodash": "~4.16.5",
+    "lodash": "~4.17.19",
     "material-design-icons": "~3.0.1",
     "nw": "~0.18.1"
   },
